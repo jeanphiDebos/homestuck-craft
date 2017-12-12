@@ -1,0 +1,50 @@
+app.admin.object: objet
+app.admin.craft: fabrication
+app.admin.user: utilisateur
+app.admin.inventory: inventaire
+app.admin.type-object: type d'objet
+app.admin.category-object: categorie d'objet
+app.admin.visibility-object: visibilité de l'objet
+app.admin.capacity: capacité
+app.admin.new: nouveau
+app.admin.list.object: liste des objets
+app.admin.list.craft: liste des fabrications
+app.admin.list.inventory: liste des inventaires
+app.admin.list.user: liste des utilisateurs
+app.admin.list.category-object: liste des categories d'objets
+app.admin.list.type-object: liste des type d'objets
+app.admin.list.capacity: liste des capacités
+app.admin.list.visibility-object: liste des objets visible
+app.admin.new.object: nouveau objet
+app.admin.new.craft: nouvelle fabrication
+app.admin.new.inventory: nouveau inventaire
+app.admin.new.user: nouveau utilisateur
+app.admin.new.category-object: nouvelle categorie d'objet
+app.admin.new.type-object: nouveau type d'objet
+app.admin.new.capacity: nouvelle capacité
+app.admin.new.visibility-object: nouveau objet visible
+app.admin.object.id: id
+app.admin.object.description: description
+app.admin.object.name: nom
+app.admin.object.is_valid: est valide
+app.admin.object.image: image
+app.admin.object.type-object: type d'objet
+app.admin.craft.object-source-one: objet source un
+app.admin.craft.object-source-two: objet source deux
+app.admin.craft.object-result: resultat objet
+app.admin.user.id: id
+app.admin.user.name: nom
+app.admin.user.lvl: niveau
+app.admin.inventory.user: utilisateur
+app.admin.inventory.object: objet
+app.admin.type-object.id: id
+app.admin.type-object.name: name
+app.admin.type-object.category-object: categorie d'objet
+app.admin.category-object.id: id
+app.admin.category-object.name: nom
+app.admin.visibility-object.user: utilisateur
+app.admin.visibility-object.object: objet
+app.admin.visibility-object.is_valid: est valide
+app.admin.capacity.lvl: niveau
+app.admin.capacity.capacity: capacité
+app.admin.capacity.max-type-object-craft: max de type d'objet fabricable

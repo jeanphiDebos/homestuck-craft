@@ -60,7 +60,7 @@ class CategoryObject extends Taxonomy
     /**
      * @return ArrayCollection
      */
-    public function getTypeObject(): ArrayCollection
+    public function getTypeObject()
     {
         return $this->typeObject;
     }

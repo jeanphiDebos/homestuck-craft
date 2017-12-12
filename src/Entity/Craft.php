@@ -9,33 +9,47 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\UniqueConstraint;
 
 /**
  * Class Craft
  * @package App\Entity
  * @ORM\Entity
- * @ORM\Table(name="craft")
+ * @ORM\Table(name="craft",
+ *    uniqueConstraints={
+ *        @UniqueConstraint(
+ *          name="craft_unique",
+ *          columns={"object_source_one_id", "object_source_two_id", "object_result_id"}
+ *        )
+ *    })
  */
 class Craft
 {
     /**
-     * @var Object
+     * @var integer
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="App\Entity\Object", inversedBy="craftSourceOne")
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $objectSourceOne;
+    protected $id;
     /**
      * @var Object
-     * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="App\Entity\Object", inversedBy="craftSourceTwo")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Object", inversedBy="craftsSourceOne")
+     * @ORM\JoinColumn(name="object_source_one_id", referencedColumnName="id", nullable=false)
      */
-    private $objectSourceTwo;
+    protected $objectSourceOne;
     /**
      * @var Object
-     * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="App\Entity\Object", inversedBy="craftResult")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Object", inversedBy="craftsSourceTwo")
+     * @ORM\JoinColumn(name="object_source_two_id", referencedColumnName="id", nullable=false)
      */
-    private $objectResult;
+    protected $objectSourceTwo;
+    /**
+     * @var Object
+     * @ORM\ManyToOne(targetEntity="App\Entity\Object", inversedBy="craftsResult")
+     * @ORM\JoinColumn(name="object_result_id", referencedColumnName="id", nullable=false)
+     */
+    protected $objectResult;
 
     /**
      * Inventory constructor.
@@ -46,9 +60,17 @@ class Craft
     }
 
     /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
      * @return Object
      */
-    public function getObjectSourceOne(): Object
+    public function getObjectSourceOne()
     {
         return $this->objectSourceOne;
     }
@@ -64,7 +86,7 @@ class Craft
     /**
      * @return Object
      */
-    public function getObjectSourceTwo(): Object
+    public function getObjectSourceTwo()
     {
         return $this->objectSourceTwo;
     }
@@ -80,7 +102,7 @@ class Craft
     /**
      * @return Object
      */
-    public function getObjectResult(): Object
+    public function getObjectResult()
     {
         return $this->objectResult;
     }

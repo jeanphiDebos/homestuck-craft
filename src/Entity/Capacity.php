@@ -23,17 +23,17 @@ class Capacity
      * @ORM\Id
      * @ORM\Column(name="lvl", type="integer", nullable=false)
      */
-    private $lvl;
+    protected $lvl;
     /**
      * @var integer
      * @ORM\Column(name="capacity", type="integer", nullable=false, options={"default" : 0})
      */
-    private $capacity;
+    protected $capacity;
     /**
      * @var integer
      * @ORM\Column(name="max_type_object_craft", type="integer", nullable=false, options={"default" : 0})
      */
-    private $maxTypeObjectCraft;
+    protected $maxTypeObjectCraft;
 
     /**
      * Capacity constructor.
@@ -46,7 +46,7 @@ class Capacity
     /**
      * @return string
      */
-    public function getLvl(): string
+    public function getLvl()
     {
         return $this->lvl;
     }
@@ -62,7 +62,7 @@ class Capacity
     /**
      * @return int
      */
-    public function getCapacity(): int
+    public function getCapacity()
     {
         return $this->capacity;
     }
@@ -78,7 +78,7 @@ class Capacity
     /**
      * @return int
      */
-    public function getMaxTypeObjectCraft(): int
+    public function getMaxTypeObjectCraft()
     {
         return $this->maxTypeObjectCraft;
     }

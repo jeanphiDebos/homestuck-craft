@@ -10,12 +10,15 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * Class Object
  * @package App\Entity
  * @ORM\Entity
  * @ORM\Table(name="object")
+ * @Vich\Uploadable
  */
 class Object
 {
@@ -25,12 +28,28 @@ class Object
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
     /**
      * @var string
      * @ORM\Column(name="name", type="string", length=255, nullable=false)
      */
-    private $name;
+    protected $name;
+    /**
+     * @var string
+     * @ORM\Column(type="text")
+     */
+    protected $description;
+    /**
+     * @var string
+     * @ORM\Column(type="string", length=255)
+     */
+    protected $image;
+
+    /**
+     * @var File
+     * @Vich\UploadableField(mapping="object_images", fileNameProperty="image")
+     */
+    protected $imageFile;
     /**
      * @var boolean
      * @ORM\Column(name="isvalid", type="boolean", length=255, nullable=true, options={"default":false})
@@ -47,10 +66,15 @@ class Object
      */
     protected $visibilityObjects;
     /**
-     * @var TypeObject
-     * @ORM\ManyToOne(targetEntity="App\Entity\TypeObject", inversedBy="objects")
+     * @var ArrayCollection<TypeObject>
+     * @ORM\ManyToMany(targetEntity="App\Entity\TypeObject", inversedBy="objects", cascade={"persist"})
+     * @ORM\JoinTable(
+     *      name="objects_type",
+     *      joinColumns={@ORM\JoinColumn(name="object_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="type_object_id", referencedColumnName="id")}
+     * )
      */
-    private $typeObject;
+    private $typeObjects;
     /**
      * @var ArrayCollection<Craft>
      * @ORM\OneToMany(targetEntity="App\Entity\Craft", mappedBy="objectSourceOne")
@@ -74,6 +98,7 @@ class Object
     {
         $this->inventories = new ArrayCollection();
         $this->visibilityObjects = new ArrayCollection();
+        $this->typeObjects = new ArrayCollection();
         $this->craftsSourceOne = new ArrayCollection();
         $this->craftsSourceTwo = new ArrayCollection();
         $this->craftsResult = new ArrayCollection();
@@ -83,23 +108,15 @@ class Object
     /**
      * @return int
      */
-    public function getId(): int
+    public function getId()
     {
         return $this->id;
     }
 
     /**
-     * @param int $id
-     */
-    public function setId(int $id)
-    {
-        $this->id = $id;
-    }
-
-    /**
      * @return string
      */
-    public function getName(): string
+    public function getName()
     {
         return $this->name;
     }
@@ -113,9 +130,60 @@ class Object
     }
 
     /**
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param string $description
+     */
+    public function setDescription(string $description)
+    {
+        $this->description = $description;
+    }
+
+    /**
+     * @return string
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * @param string $image
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
+    }
+
+    /**
+     * @return File
+     */
+    public function getImageFile()
+    {
+        return $this->imageFile;
+    }
+
+    /**
+     * @param File $imageFile
+     */
+    public function setImageFile($imageFile)
+    {
+        $this->imageFile = $imageFile;
+//        if ($imageFile) {
+//            $this->updatedAt = new \DateTime('now');
+//        }
+    }
+
+    /**
      * @return bool
      */
-    public function isValid(): bool
+    public function isValid()
     {
         return $this->isValid;
     }
@@ -169,19 +237,43 @@ class Object
     }
 
     /**
-     * @return TypeObject
+     * Add typeObject
+     *
+     * @param TypeObject $typeObject
+     *
+     * @return $this
      */
-    public function getTypeObject(): TypeObject
+    public function addTypeObject(TypeObject $typeObject)
     {
-        return $this->typeObject;
+        $this->typeObjects->add($typeObject);
+
+        return $this;
     }
 
     /**
+     * Remove typeObject
+     *
      * @param TypeObject $typeObject
      */
-    public function setTypeObject(TypeObject $typeObject)
+    public function removeTypeObject(TypeObject $typeObject)
     {
-        $this->typeObject = $typeObject;
+        $this->typeObjects->removeElement($typeObject);
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getTypeObjects()
+    {
+        return $this->typeObjects;
+    }
+
+    /**
+     * @param ArrayCollection $typeObjects
+     */
+    public function setTypeObjects(ArrayCollection $typeObjects)
+    {
+        $this->typeObjects = $typeObjects;
     }
 
     /**
@@ -251,7 +343,7 @@ class Object
     /**
      * @return ArrayCollection
      */
-    public function getCraftsSourceOne(): ArrayCollection
+    public function getCraftsSourceOne()
     {
         return $this->craftsSourceOne;
     }
@@ -291,7 +383,7 @@ class Object
     /**
      * @return ArrayCollection
      */
-    public function getCraftsSourceTwo(): ArrayCollection
+    public function getCraftsSourceTwo()
     {
         return $this->craftsSourceTwo;
     }
@@ -331,7 +423,7 @@ class Object
     /**
      * @return ArrayCollection
      */
-    public function getCraftsResult(): ArrayCollection
+    public function getCraftsResult()
     {
         return $this->craftsResult;
     }
@@ -342,5 +434,13 @@ class Object
     public function setCraftsResult(ArrayCollection $craftsResult)
     {
         $this->craftsResult = $craftsResult;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return (string)$this->name;
     }
 }

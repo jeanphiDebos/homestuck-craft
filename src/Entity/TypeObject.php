@@ -21,14 +21,14 @@ class TypeObject extends Taxonomy
 {
     /**
      * @var ArrayCollection<Object>
-     * @ORM\OneToMany(targetEntity="App\Entity\Object", mappedBy="typeObject")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Object", mappedBy="typeObjects", cascade={"persist"})
      */
     protected $objects;
     /**
      * @var CategoryObject
      * @ORM\ManyToOne(targetEntity="App\Entity\CategoryObject", inversedBy="typeObject")
      */
-    private $categoryObject;
+    protected $categoryObject;
 
     /**
      * TypeObject constructor.
@@ -65,7 +65,7 @@ class TypeObject extends Taxonomy
     /**
      * @return ArrayCollection
      */
-    public function getObjects(): ArrayCollection
+    public function getObjects()
     {
         return $this->objects;
     }
@@ -81,7 +81,7 @@ class TypeObject extends Taxonomy
     /**
      * @return CategoryObject
      */
-    public function getCategoryObject(): CategoryObject
+    public function getCategoryObject()
     {
         return $this->categoryObject;
     }

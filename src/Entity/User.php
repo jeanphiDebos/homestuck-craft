@@ -20,17 +20,17 @@ class User
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
     /**
      * @var string
      * @ORM\Column(name="name", type="string", length=255, nullable=false)
      */
-    private $name;
+    protected $name;
     /**
      * @var string
      * @ORM\Column(name="lvl", type="integer", nullable=false, options={"default" : 1})
      */
-    private $lvl;
+    protected $lvl;
     /**
      * @var ArrayCollection<Inventory>
      * @ORM\OneToMany(targetEntity="App\Entity\Inventory", mappedBy="user")
@@ -56,23 +56,15 @@ class User
     /**
      * @return int
      */
-    public function getId(): int
+    public function getId()
     {
         return $this->id;
     }
 
     /**
-     * @param int $id
-     */
-    public function setId(int $id)
-    {
-        $this->id = $id;
-    }
-
-    /**
      * @return string
      */
-    public function getName(): string
+    public function getName()
     {
         return $this->name;
     }
@@ -88,7 +80,7 @@ class User
     /**
      * @return string
      */
-    public function getLvl(): string
+    public function getLvl()
     {
         return $this->lvl;
     }
@@ -204,5 +196,13 @@ class User
     public function setVisibilityObjects($visibilityObjects)
     {
         $this->visibilityObjects = $visibilityObjects;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return (string)$this->name;
     }
 }

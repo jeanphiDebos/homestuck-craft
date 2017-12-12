@@ -19,22 +19,24 @@ use Doctrine\ORM\Mapping as ORM;
 class Inventory
 {
     /**
-     * @var User
+     * @var integer
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="inventories")
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $user;
+    protected $id;
+    /**
+     * @var User
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="inventories")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
+     */
+    protected $user;
     /**
      * @var Object
-     * @ORM\Id
      * @ORM\ManyToOne(targetEntity="App\Entity\Object", inversedBy="inventories")
+     * @ORM\JoinColumn(name="object_id", referencedColumnName="id", nullable=false)
      */
-    private $object;
-    /**
-     * @var integer
-     * @ORM\Column(name="count", type="integer", nullable=false, options={"default" : 1})
-     */
-    private $count;
+    protected $object;
 
     /**
      * Inventory constructor.
@@ -45,9 +47,17 @@ class Inventory
     }
 
     /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
      * @return User
      */
-    public function getUser(): User
+    public function getUser()
     {
         return $this->user;
     }
@@ -63,7 +73,7 @@ class Inventory
     /**
      * @return Object
      */
-    public function getObject(): Object
+    public function getObject()
     {
         return $this->object;
     }
@@ -74,21 +84,5 @@ class Inventory
     public function setObject(Object $object)
     {
         $this->object = $object;
-    }
-
-    /**
-     * @return int
-     */
-    public function getCount(): int
-    {
-        return $this->count;
-    }
-
-    /**
-     * @param int $count
-     */
-    public function setCount(int $count)
-    {
-        $this->count = $count;
     }
 }

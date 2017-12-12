@@ -9,32 +9,46 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\UniqueConstraint;
 
 /**
  * Class VisibilityObject
  * @package App\Entity
  * @ORM\Entity
- * @ORM\Table(name="visibility_object")
+ * @ORM\Table(name="visibility_object",
+ *    uniqueConstraints={
+ *        @UniqueConstraint(
+ *          name="visibility_object_unique",
+ *          columns={"user_id", "object_id"}
+ *        )
+ *    })
  */
 class VisibilityObject
 {
     /**
-     * @var User
+     * @var integer
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="visibilityObjects")
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $user;
+    protected $id;
+    /**
+     * @var User
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="visibilityObjects")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
+     */
+    protected $user;
     /**
      * @var Object
-     * @ORM\Id
      * @ORM\ManyToOne(targetEntity="App\Entity\Object", inversedBy="visibilityObjects")
+     * @ORM\JoinColumn(name="object_id", referencedColumnName="id", nullable=false)
      */
-    private $object;
+    protected $object;
     /**
      * @var boolean
      * @ORM\Column(name="isvalid", type="boolean", length=255, nullable=true, options={"default":false})
      */
-    private $isValid;
+    protected $isValid;
 
     /**
      * Inventory constructor.
@@ -45,9 +59,17 @@ class VisibilityObject
     }
 
     /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
      * @return User
      */
-    public function getUser(): User
+    public function getUser()
     {
         return $this->user;
     }
@@ -63,7 +85,7 @@ class VisibilityObject
     /**
      * @return Object
      */
-    public function getObject(): Object
+    public function getObject()
     {
         return $this->object;
     }
@@ -79,7 +101,7 @@ class VisibilityObject
     /**
      * @return bool
      */
-    public function isValid(): bool
+    public function isValid()
     {
         return $this->isValid;
     }
