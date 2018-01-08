@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -11,8 +12,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Entity
  * @ORM\Table(name="user")
  */
-//class User extends BaseUser
-class User
+class User extends BaseUser
 {
     /**
      * @var integer
@@ -47,7 +47,7 @@ class User
      */
     public function __construct()
     {
-//        parent::__construct();
+        parent::__construct();
         $this->inventories = new ArrayCollection();
         $this->visibilityObjects = new ArrayCollection();
         $this->lvl = 1;

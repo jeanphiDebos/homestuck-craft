@@ -27,10 +27,18 @@ Encore
     .autoProvideVariables({
         $: 'jquery',
         jQuery: 'jquery',
-        'window.jQuery': 'jquery'
+        'window.jQuery': 'jquery',
+        "Routing": "router"
+    })
+    .addLoader({
+        test: /jsrouting-bundle\/Resources\/public\/js\/router.js$/,
+        loader: "exports-loader?router=window.Routing"
     })
 
     .enableSourceMaps(!Encore.isProduction())
 ;
 
 module.exports = Encore.getWebpackConfig();
+module.exports.resolve.alias = {
+    'router': './assets/js/router.js'
+};

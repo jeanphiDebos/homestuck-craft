@@ -4,6 +4,8 @@
  */
 require('bootstrap-sass');
 
+// Routing.generate('...');
+
 $(document).ready(function() {
     $('[data-toggle="popover"]').popover();
 });
