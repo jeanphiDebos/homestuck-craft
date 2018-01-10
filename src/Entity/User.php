@@ -23,11 +23,6 @@ class User extends BaseUser
     protected $id;
     /**
      * @var string
-     * @ORM\Column(name="name", type="string", length=255, nullable=false)
-     */
-    protected $name;
-    /**
-     * @var string
      * @ORM\Column(name="lvl", type="integer", nullable=false, options={"default" : 1})
      */
     protected $lvl;
@@ -59,22 +54,6 @@ class User extends BaseUser
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * @param string $name
-     */
-    public function setName(string $name)
-    {
-        $this->name = $name;
     }
 
     /**
@@ -203,6 +182,6 @@ class User extends BaseUser
      */
     public function __toString()
     {
-        return (string)$this->name;
+        return (string)$this->username;
     }
 }

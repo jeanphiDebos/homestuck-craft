@@ -198,13 +198,13 @@ easy_admin:
                 title: 'app.admin.list.user'
                 fields:
                     - { property: 'id', label: 'app.admin.user.id' }
-                    - { property: 'name', label: 'app.admin.user.name' }
+                    - { property: 'username', label: 'app.admin.user.name' }
                     - { property: 'lvl', label: 'app.admin.user.lvl' }
 #                    - { property: 'isAdmin', type: 'toggle', label: 'app.admin.user.is_admin' }
 #                    - { property: 'enabled', type: 'toggle', label: 'app.admin.user.enabled' }
             form:
                 fields:
-                    - { property: 'name', label: 'app.admin.user.name' }
+                    - { property: 'username', label: 'app.admin.user.name' }
                     - { property: 'lvl', label: 'app.admin.user.lvl' }
 #                    - { property: 'email', label: 'app.admin.user.email' }
 #                    - { property: 'isAdmin', type: 'checkbox', label: 'app.admin.user.is_admin' }
@@ -213,7 +213,7 @@ easy_admin:
                 title: 'app.admin.show.user'
                 fields:
                     - { property: 'id', label: 'app.admin.user.id' }
-                    - { property: 'name', label: 'app.admin.user.name' }
+                    - { property: 'username', label: 'app.admin.user.name' }
                     - { property: 'lvl', label: 'app.admin.user.lvl' }
 #                    - { property: 'isAdmin', type: 'toggle', label: 'app.admin.user.is_admin' }
 #                    - { property: 'enabled', type: 'toggle', label: 'app.admin.user.enabled' }
