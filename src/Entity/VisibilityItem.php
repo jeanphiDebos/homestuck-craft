@@ -12,18 +12,18 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\UniqueConstraint;
 
 /**
- * Class VisibilityObject
+ * Class VisibilityItem
  * @package App\Entity
  * @ORM\Entity
- * @ORM\Table(name="visibility_object",
+ * @ORM\Table(name="visibility_item",
  *    uniqueConstraints={
  *        @UniqueConstraint(
- *          name="visibility_object_unique",
- *          columns={"user_id", "object_id"}
+ *          name="visibility_item_unique",
+ *          columns={"user_id", "item_id"}
  *        )
  *    })
  */
-class VisibilityObject
+class VisibilityItem
 {
     /**
      * @var integer
@@ -34,16 +34,16 @@ class VisibilityObject
     protected $id;
     /**
      * @var User
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="visibilityObjects")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="visibilityItems")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
      */
     protected $user;
     /**
-     * @var Object
-     * @ORM\ManyToOne(targetEntity="App\Entity\Object", inversedBy="visibilityObjects")
-     * @ORM\JoinColumn(name="object_id", referencedColumnName="id", nullable=false)
+     * @var Item
+     * @ORM\ManyToOne(targetEntity="Item", inversedBy="visibilityItems")
+     * @ORM\JoinColumn(name="item_id", referencedColumnName="id", nullable=false)
      */
-    protected $object;
+    protected $item;
     /**
      * @var boolean
      * @ORM\Column(name="isvalid", type="boolean", length=255, nullable=true, options={"default":false})
@@ -83,19 +83,19 @@ class VisibilityObject
     }
 
     /**
-     * @return Object
+     * @return Item
      */
-    public function getObject()
+    public function getItem()
     {
-        return $this->object;
+        return $this->item;
     }
 
     /**
-     * @param Object $object
+     * @param Item $item
      */
-    public function setObject(Object $object)
+    public function setItem(Item $item)
     {
-        $this->object = $object;
+        $this->item = $item;
     }
 
     /**

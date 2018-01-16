@@ -2,7 +2,7 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: 'fr'
-    vich.path.object_images: uploads/images/objects
+    vich.path.item_images: uploads/images/items
 
 services:
     # default configuration for services in *this* file

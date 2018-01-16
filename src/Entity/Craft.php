@@ -19,7 +19,7 @@ use Doctrine\ORM\Mapping\UniqueConstraint;
  *    uniqueConstraints={
  *        @UniqueConstraint(
  *          name="craft_unique",
- *          columns={"object_source_one_id", "object_source_two_id", "object_result_id"}
+ *          columns={"item_source_one_id", "item_source_two_id", "item_result_id"}
  *        )
  *    })
  */
@@ -33,23 +33,23 @@ class Craft
      */
     protected $id;
     /**
-     * @var Object
-     * @ORM\ManyToOne(targetEntity="App\Entity\Object", inversedBy="craftsSourceOne")
-     * @ORM\JoinColumn(name="object_source_one_id", referencedColumnName="id", nullable=false)
+     * @var Item
+     * @ORM\ManyToOne(targetEntity="Item", inversedBy="craftsSourceOne")
+     * @ORM\JoinColumn(name="item_source_one_id", referencedColumnName="id", nullable=false)
      */
-    protected $objectSourceOne;
+    protected $itemSourceOne;
     /**
-     * @var Object
-     * @ORM\ManyToOne(targetEntity="App\Entity\Object", inversedBy="craftsSourceTwo")
-     * @ORM\JoinColumn(name="object_source_two_id", referencedColumnName="id", nullable=false)
+     * @var Item
+     * @ORM\ManyToOne(targetEntity="Item", inversedBy="craftsSourceTwo")
+     * @ORM\JoinColumn(name="item_source_two_id", referencedColumnName="id", nullable=false)
      */
-    protected $objectSourceTwo;
+    protected $itemSourceTwo;
     /**
-     * @var Object
-     * @ORM\ManyToOne(targetEntity="App\Entity\Object", inversedBy="craftsResult")
-     * @ORM\JoinColumn(name="object_result_id", referencedColumnName="id", nullable=false)
+     * @var Item
+     * @ORM\ManyToOne(targetEntity="Item", inversedBy="craftsResult")
+     * @ORM\JoinColumn(name="item_result_id", referencedColumnName="id", nullable=false)
      */
-    protected $objectResult;
+    protected $itemResult;
 
     /**
      * Inventory constructor.
@@ -68,50 +68,50 @@ class Craft
     }
 
     /**
-     * @return Object
+     * @return Item
      */
-    public function getObjectSourceOne()
+    public function getItemSourceOne()
     {
-        return $this->objectSourceOne;
+        return $this->itemSourceOne;
     }
 
     /**
-     * @param Object $objectSourceOne
+     * @param Item $itemSourceOne
      */
-    public function setObjectSourceOne(Object $objectSourceOne)
+    public function setItemSourceOne(Item $itemSourceOne)
     {
-        $this->objectSourceOne = $objectSourceOne;
+        $this->itemSourceOne = $itemSourceOne;
     }
 
     /**
-     * @return Object
+     * @return Item
      */
-    public function getObjectSourceTwo()
+    public function getItemSourceTwo()
     {
-        return $this->objectSourceTwo;
+        return $this->itemSourceTwo;
     }
 
     /**
-     * @param Object $objectSourceTwo
+     * @param Item $itemSourceTwo
      */
-    public function setObjectSourceTwo(Object $objectSourceTwo)
+    public function setItemSourceTwo(Item $itemSourceTwo)
     {
-        $this->objectSourceTwo = $objectSourceTwo;
+        $this->itemSourceTwo = $itemSourceTwo;
     }
 
     /**
-     * @return Object
+     * @return Item
      */
-    public function getObjectResult()
+    public function getItemResult()
     {
-        return $this->objectResult;
+        return $this->itemResult;
     }
 
     /**
-     * @param Object $objectResult
+     * @param Item $itemResult
      */
-    public function setObjectResult(Object $objectResult)
+    public function setItemResult(Item $itemResult)
     {
-        $this->objectResult = $objectResult;
+        $this->itemResult = $itemResult;
     }
 }

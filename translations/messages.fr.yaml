@@ -1,50 +1,54 @@
-app.admin.object: objet
+app.admin.item: objet
 app.admin.craft: fabrication
 app.admin.user: utilisateur
 app.admin.inventory: inventaire
-app.admin.type-object: type d'objet
-app.admin.category-object: categorie d'objet
-app.admin.visibility-object: visibilité de l'objet
+app.admin.type-item: type d'objet
+app.admin.category-item: categorie d'objet
+app.admin.visibility-item: visibilité de l'objet
 app.admin.capacity: capacité
 app.admin.new: nouveau
-app.admin.list.object: liste des objets
+app.admin.list.item: liste des objets
 app.admin.list.craft: liste des fabrications
 app.admin.list.inventory: liste des inventaires
 app.admin.list.user: liste des utilisateurs
-app.admin.list.category-object: liste des categories d'objets
-app.admin.list.type-object: liste des type d'objets
+app.admin.list.category-item: liste des categories d'objets
+app.admin.list.type-item: liste des type d'objets
 app.admin.list.capacity: liste des capacités
-app.admin.list.visibility-object: liste des objets visible
-app.admin.new.object: nouveau objet
+app.admin.list.visibility-item: liste des objets visible
+app.admin.new.item: nouveau objet
 app.admin.new.craft: nouvelle fabrication
 app.admin.new.inventory: nouveau inventaire
 app.admin.new.user: nouveau utilisateur
-app.admin.new.category-object: nouvelle categorie d'objet
-app.admin.new.type-object: nouveau type d'objet
+app.admin.new.category-item: nouvelle categorie d'objet
+app.admin.new.type-item: nouveau type d'objet
 app.admin.new.capacity: nouvelle capacité
-app.admin.new.visibility-object: nouveau objet visible
-app.admin.object.id: id
-app.admin.object.description: description
-app.admin.object.name: nom
-app.admin.object.is_valid: est valide
-app.admin.object.image: image
-app.admin.object.type-object: type d'objet
-app.admin.craft.object-source-one: objet source un
-app.admin.craft.object-source-two: objet source deux
-app.admin.craft.object-result: resultat objet
+app.admin.new.visibility-item: nouveau objet visible
+app.admin.item.id: id
+app.admin.item.description: description
+app.admin.item.name: nom
+app.admin.item.is_valid: est valide
+app.admin.item.image: image
+app.admin.item.type-item: type d'objet
+app.admin.craft.item-source-one: objet source un
+app.admin.craft.item-source-two: objet source deux
+app.admin.craft.item-result: resultat objet
 app.admin.user.id: id
 app.admin.user.name: nom
 app.admin.user.lvl: niveau
+app.admin.user.enabled: enabled
+app.admin.user.email: email
+app.admin.user.plainPassword: mot de passe
+app.admin.user.roles: roles
 app.admin.inventory.user: utilisateur
-app.admin.inventory.object: objet
-app.admin.type-object.id: id
-app.admin.type-object.name: name
-app.admin.type-object.category-object: categorie d'objet
-app.admin.category-object.id: id
-app.admin.category-object.name: nom
-app.admin.visibility-object.user: utilisateur
-app.admin.visibility-object.object: objet
-app.admin.visibility-object.is_valid: est valide
+app.admin.inventory.item: objet
+app.admin.type-item.id: id
+app.admin.type-item.name: name
+app.admin.type-item.category-item: categorie d'objet
+app.admin.category-item.id: id
+app.admin.category-item.name: nom
+app.admin.visibility-item.user: utilisateur
+app.admin.visibility-item.item: objet
+app.admin.visibility-item.is_valid: est valide
 app.admin.capacity.lvl: niveau
 app.admin.capacity.capacity: capacité
-app.admin.capacity.max-type-object-craft: max de type d'objet fabricable
+app.admin.capacity.max-type-item-craft: max de type d'objet fabricable

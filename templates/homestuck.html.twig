@@ -3,76 +3,47 @@
 {% block body %}
     <div class="container">
         <header class="header clearfix">
-            <nav class="navbar navbar-expand-lg navbar-light bg-light rounded">
-                <div class="collapse navbar-collapse justify-content-md-center">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">add item</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">remove item</a>
-                        </li>
-                    </ul>
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                                data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="#">{{ 'homestuck'|trans }}</a>
+                    </div>
+                    <div id="navbar" class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+                            <li>
+                                <a data-toggle="modal" data-target="#add-item-inventory">
+                                    {{ 'inventory.add-item'|trans }}
+                                </a>
+                            </li>
+                            <li>
+                                <a data-toggle="modal" data-target="#remove-item-inventory">
+                                    {{ 'inventory.remove-item'|trans }}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </nav>
         </header>
         <main role="main">
-            <div class="row text-center">
-                <div class="col-md-3">
-                    <div class="row">
-                        <div class="col-md-12">
-                            selectBox
-                        </div>
-                        <div class="col-md-12">
-                            object img
-                        </div>
-                        <div class="col-md-12">
-                            name
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-1">
-                    +
-                </div>
-                <div class="col-md-3">
-                    <div class="row">
-                        <div class="col-md-12">
-                            selectBox
-                        </div>
-                        <div class="col-md-12">
-                            object img
-                        </div>
-                        <div class="col-md-12">
-                            name
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-1">
-                    =>
-                </div>
-                <div class="col-md-4">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    last
-                                </div>
-                                <div class="col-md-6">
-                                    next
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            object img
-                        </div>
-                        <div class="col-md-12">
-                            name
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {% include('block/block-crafting-item.html.twig') %}
         </main>
-        <footer class="footer">
-        </footer>
     </div>
+    <footer class="footer inventory-player">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#add-item-inventory">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+        </button>
+        <div>
+            {% include('block/block-inventory-item.html.twig') %}
+        </div>
+    </footer>
+    {% include('modal/modal-add-item-inventory.html.twig') %}
+    {% include('modal/modal-remove-item-inventory.html.twig') %}
 {% endblock %}

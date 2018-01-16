@@ -31,9 +31,9 @@ class Capacity
     protected $capacity;
     /**
      * @var integer
-     * @ORM\Column(name="max_type_object_craft", type="integer", nullable=false, options={"default" : 0})
+     * @ORM\Column(name="max_type_item_craft", type="integer", nullable=false, options={"default" : 0})
      */
-    protected $maxTypeObjectCraft;
+    protected $maxTypeItemCraft;
 
     /**
      * Capacity constructor.
@@ -78,17 +78,17 @@ class Capacity
     /**
      * @return int
      */
-    public function getMaxTypeObjectCraft()
+    public function getMaxTypeItemCraft()
     {
-        return $this->maxTypeObjectCraft;
+        return $this->maxTypeItemCraft;
     }
 
     /**
-     * @param int $maxTypeObjectCraft
+     * @param int $maxTypeItemCraft
      */
-    public function setMaxTypeObjectCraft(int $maxTypeObjectCraft)
+    public function setMaxTypeItemCraft(int $maxTypeItemCraft)
     {
-        $this->maxTypeObjectCraft = $maxTypeObjectCraft;
+        $this->maxTypeItemCraft = $maxTypeItemCraft;
     }
 
 }

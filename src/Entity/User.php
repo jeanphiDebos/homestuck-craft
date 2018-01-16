@@ -32,10 +32,10 @@ class User extends BaseUser
      */
     protected $inventories;
     /**
-     * @var ArrayCollection<VisibilityObject>
-     * @ORM\OneToMany(targetEntity="App\Entity\VisibilityObject", mappedBy="user")
+     * @var ArrayCollection<VisibilityItem>
+     * @ORM\OneToMany(targetEntity="VisibilityItem", mappedBy="user")
      */
-    protected $visibilityObjects;
+    protected $visibilityItems;
 
     /**
      * User constructor.
@@ -44,7 +44,7 @@ class User extends BaseUser
     {
         parent::__construct();
         $this->inventories = new ArrayCollection();
-        $this->visibilityObjects = new ArrayCollection();
+        $this->visibilityItems = new ArrayCollection();
         $this->lvl = 1;
     }
 
@@ -138,43 +138,43 @@ class User extends BaseUser
     }
 
     /**
-     * Add visibilityObject
+     * Add visibilityItem
      *
-     * @param visibilityObject $visibilityObject
+     * @param VisibilityItem $visibilityItem
      *
      * @return $this
      */
-    public function addVisibilityObject(visibilityObject $visibilityObject)
+    public function addVisibilityItem(VisibilityItem $visibilityItem)
     {
-        $this->visibilityObjects->add($visibilityObject);
+        $this->visibilityItems->add($visibilityItem);
 
         return $this;
     }
 
     /**
-     * Remove visibilityObject
+     * Remove visibilityItem
      *
-     * @param visibilityObject $visibilityObject
+     * @param VisibilityItem $visibilityItem
      */
-    public function removeVisibilityObject(visibilityObject $visibilityObject)
+    public function removeVisibilityItem(VisibilityItem $visibilityItem)
     {
-        $this->visibilityObjects->removeElement($visibilityObject);
+        $this->visibilityItems->removeElement($visibilityItem);
     }
 
     /**
      * @return ArrayCollection
      */
-    public function getVisibilityObjects()
+    public function getVisibilityItems()
     {
-        return $this->visibilityObjects;
+        return $this->visibilityItems;
     }
 
     /**
-     * @param ArrayCollection $visibilityObjects
+     * @param ArrayCollection $visibilityItems
      */
-    public function setVisibilityObjects($visibilityObjects)
+    public function setVisibilityItems($visibilityItems)
     {
-        $this->visibilityObjects = $visibilityObjects;
+        $this->visibilityItems = $visibilityItems;
     }
 
     /**

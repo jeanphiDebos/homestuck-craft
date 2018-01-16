@@ -32,11 +32,11 @@ class Inventory
      */
     protected $user;
     /**
-     * @var Object
-     * @ORM\ManyToOne(targetEntity="App\Entity\Object", inversedBy="inventories")
-     * @ORM\JoinColumn(name="object_id", referencedColumnName="id", nullable=false)
+     * @var Item
+     * @ORM\ManyToOne(targetEntity="Item", inversedBy="inventories")
+     * @ORM\JoinColumn(name="item_id", referencedColumnName="id", nullable=false)
      */
-    protected $object;
+    protected $item;
 
     /**
      * Inventory constructor.
@@ -71,18 +71,18 @@ class Inventory
     }
 
     /**
-     * @return Object
+     * @return Item
      */
-    public function getObject()
+    public function getItem()
     {
-        return $this->object;
+        return $this->item;
     }
 
     /**
-     * @param Object $object
+     * @param Item $item
      */
-    public function setObject(Object $object)
+    public function setItem(Item $item)
     {
-        $this->object = $object;
+        $this->item = $item;
     }
 }

@@ -14,13 +14,13 @@ use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
- * Class Object
+ * Class Item
  * @package App\Entity
  * @ORM\Entity
- * @ORM\Table(name="object")
+ * @ORM\Table(name="item")
  * @Vich\Uploadable
  */
-class Object
+class Item
 {
     /**
      * @var integer
@@ -47,7 +47,7 @@ class Object
 
     /**
      * @var File
-     * @Vich\UploadableField(mapping="object_images", fileNameProperty="image")
+     * @Vich\UploadableField(mapping="item_images", fileNameProperty="image")
      */
     protected $imageFile;
     /**
@@ -57,48 +57,48 @@ class Object
     private $isValid;
     /**
      * @var ArrayCollection<Inventory>
-     * @ORM\OneToMany(targetEntity="App\Entity\Inventory", mappedBy="object")
+     * @ORM\OneToMany(targetEntity="App\Entity\Inventory", mappedBy="item")
      */
     protected $inventories;
     /**
-     * @var ArrayCollection<VisibilityObject>
-     * @ORM\OneToMany(targetEntity="App\Entity\VisibilityObject", mappedBy="object")
+     * @var ArrayCollection<VisibilityItem>
+     * @ORM\OneToMany(targetEntity="VisibilityItem", mappedBy="item")
      */
-    protected $visibilityObjects;
+    protected $visibilityItems;
     /**
-     * @var ArrayCollection<TypeObject>
-     * @ORM\ManyToMany(targetEntity="App\Entity\TypeObject", inversedBy="objects", cascade={"persist"})
+     * @var ArrayCollection<TypeItem>
+     * @ORM\ManyToMany(targetEntity="TypeItem", inversedBy="items", cascade={"persist"})
      * @ORM\JoinTable(
-     *      name="objects_type",
-     *      joinColumns={@ORM\JoinColumn(name="object_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="type_object_id", referencedColumnName="id")}
+     *      name="items_type",
+     *      joinColumns={@ORM\JoinColumn(name="item_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="type_item_id", referencedColumnName="id")}
      * )
      */
-    private $typeObjects;
+    private $typeItems;
     /**
      * @var ArrayCollection<Craft>
-     * @ORM\OneToMany(targetEntity="App\Entity\Craft", mappedBy="objectSourceOne")
+     * @ORM\OneToMany(targetEntity="App\Entity\Craft", mappedBy="itemSourceOne")
      */
     protected $craftsSourceOne;
     /**
      * @var ArrayCollection<Craft>
-     * @ORM\OneToMany(targetEntity="App\Entity\Craft", mappedBy="objectSourceTwo")
+     * @ORM\OneToMany(targetEntity="App\Entity\Craft", mappedBy="itemSourceTwo")
      */
     protected $craftsSourceTwo;
     /**
      * @var ArrayCollection<Craft>
-     * @ORM\OneToMany(targetEntity="App\Entity\Craft", mappedBy="objectResult")
+     * @ORM\OneToMany(targetEntity="App\Entity\Craft", mappedBy="itemResult")
      */
     protected $craftsResult;
 
     /**
-     * Object constructor.
+     * Item constructor.
      */
     public function __construct()
     {
         $this->inventories = new ArrayCollection();
-        $this->visibilityObjects = new ArrayCollection();
-        $this->typeObjects = new ArrayCollection();
+        $this->visibilityItems = new ArrayCollection();
+        $this->typeItems = new ArrayCollection();
         $this->craftsSourceOne = new ArrayCollection();
         $this->craftsSourceTwo = new ArrayCollection();
         $this->craftsResult = new ArrayCollection();
@@ -237,83 +237,83 @@ class Object
     }
 
     /**
-     * Add typeObject
+     * Add typeItem
      *
-     * @param TypeObject $typeObject
+     * @param TypeItem $typeItem
      *
      * @return $this
      */
-    public function addTypeObject(TypeObject $typeObject)
+    public function addTypeItem(TypeItem $typeItem)
     {
-        $this->typeObjects->add($typeObject);
+        $this->typeItems->add($typeItem);
 
         return $this;
     }
 
     /**
-     * Remove typeObject
+     * Remove typeItem
      *
-     * @param TypeObject $typeObject
+     * @param TypeItem $typeItem
      */
-    public function removeTypeObject(TypeObject $typeObject)
+    public function removeTypeItem(TypeItem $typeItem)
     {
-        $this->typeObjects->removeElement($typeObject);
+        $this->typeItems->removeElement($typeItem);
     }
 
     /**
      * @return ArrayCollection
      */
-    public function getTypeObjects()
+    public function getTypeItems()
     {
-        return $this->typeObjects;
+        return $this->typeItems;
     }
 
     /**
-     * @param ArrayCollection $typeObjects
+     * @param ArrayCollection $typeItems
      */
-    public function setTypeObjects(ArrayCollection $typeObjects)
+    public function setTypeItems(ArrayCollection $typeItems)
     {
-        $this->typeObjects = $typeObjects;
+        $this->typeItems = $typeItems;
     }
 
     /**
-     * Add visibilityObject
+     * Add visibilityItem
      *
-     * @param VisibilityObject $visibilityObject
+     * @param VisibilityItem $visibilityItem
      *
      * @return $this
      */
-    public function addVisibilityObject(VisibilityObject $visibilityObject)
+    public function addVisibilityItem(VisibilityItem $visibilityItem)
     {
-        $this->visibilityObjects->add($visibilityObject);
+        $this->visibilityItems->add($visibilityItem);
 
         return $this;
     }
 
     /**
-     * Remove visibilityObject
+     * Remove visibilityItem
      *
-     * @param VisibilityObject $visibilityObject
+     * @param VisibilityItem $visibilityItem
      */
-    public function removeVisibilityObject(VisibilityObject $visibilityObject)
+    public function removeVisibilityItem(VisibilityItem $visibilityItem)
     {
-        $this->visibilityObjects->removeElement($visibilityObject);
+        $this->visibilityItems->removeElement($visibilityItem);
     }
 
     /**
      * @return ArrayCollection
      */
-    public function getVisibilityObjects()
+    public function getVisibilityItems()
     {
-        return $this->visibilityObjects;
+        return $this->visibilityItems;
     }
 
     /**
-     * @param ArrayCollection $visibilityObjects
+     * @param ArrayCollection $visibilityItems
      */
-    public function setVisibilityObjects($visibilityObjects)
+    public function setVisibilityItems($visibilityItems)
     {
-        $this->visibilityObjects = $visibilityObjects;
+        $this->visibilityItems = $visibilityItems;
     }
 
     /**

@@ -2,3 +2,8 @@ $icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
 $fa-font-path: "~font-awesome/fonts";
 
 @import '~bootstrap-sass/assets/stylesheets/bootstrap';
+
+body {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}

@@ -2,7 +2,7 @@
 vich_uploader:
     db_driver: orm
     mappings:
-        object_images:
-            uri_prefix:         '%vich.path.object_images%'
-            upload_destination: '%kernel.project_dir%/public/%vich.path.object_images%'
+        item_images:
+            uri_prefix:         '%vich.path.item_images%'
+            upload_destination: '%kernel.project_dir%/public/%vich.path.item_images%'
             namer:              vich_uploader.namer_uniqid
