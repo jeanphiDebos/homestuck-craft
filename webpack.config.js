@@ -5,6 +5,8 @@ Encore
     .setOutputPath('public/build/')
     // the public path used by the web server to access the previous directory
     .setPublicPath('/build')
+    .setPublicPath('/homestuck-craft/public/build')
+    .setManifestKeyPrefix('build')
     // empty the outputPath dir before each build
     .cleanupOutputBeforeBuild()
     // show OS notifications when builds finish/fail

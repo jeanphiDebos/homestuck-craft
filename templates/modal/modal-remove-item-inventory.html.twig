@@ -2,17 +2,19 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <h5 class="modal-title" id="exampleModalLabel">{{ 'modal.title.inventory.remove-item'|trans }}</h5>
             </div>
             <div class="modal-body">
-                ...
+                <form class="modal-form-inventory-remove-item">
+                    <div class="form-group">
+                        <label for="select-inventory-remove-item">{{ 'modal.body.inventory.remove-item'|trans }}</label>
+                        <select class="form-control form-control-lg" id="select-inventory-remove-item"></select>
+                    </div>
+                </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">{{ 'modal.close'|trans }}</button>
+                <button type="button" class="btn btn-danger">{{ 'modal.sav'|trans }}</button>
             </div>
         </div>
     </div>

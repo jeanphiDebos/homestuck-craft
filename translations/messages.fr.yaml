@@ -1,54 +1,94 @@
-app.admin.item: objet
-app.admin.craft: fabrication
-app.admin.user: utilisateur
-app.admin.inventory: inventaire
-app.admin.type-item: type d'objet
-app.admin.category-item: categorie d'objet
-app.admin.visibility-item: visibilité de l'objet
-app.admin.capacity: capacité
-app.admin.new: nouveau
-app.admin.list.item: liste des objets
-app.admin.list.craft: liste des fabrications
-app.admin.list.inventory: liste des inventaires
-app.admin.list.user: liste des utilisateurs
-app.admin.list.category-item: liste des categories d'objets
-app.admin.list.type-item: liste des type d'objets
-app.admin.list.capacity: liste des capacités
-app.admin.list.visibility-item: liste des objets visible
-app.admin.new.item: nouveau objet
-app.admin.new.craft: nouvelle fabrication
-app.admin.new.inventory: nouveau inventaire
-app.admin.new.user: nouveau utilisateur
-app.admin.new.category-item: nouvelle categorie d'objet
-app.admin.new.type-item: nouveau type d'objet
-app.admin.new.capacity: nouvelle capacité
-app.admin.new.visibility-item: nouveau objet visible
-app.admin.item.id: id
-app.admin.item.description: description
-app.admin.item.name: nom
-app.admin.item.is_valid: est valide
-app.admin.item.image: image
-app.admin.item.type-item: type d'objet
-app.admin.craft.item-source-one: objet source un
-app.admin.craft.item-source-two: objet source deux
-app.admin.craft.item-result: resultat objet
-app.admin.user.id: id
-app.admin.user.name: nom
-app.admin.user.lvl: niveau
-app.admin.user.enabled: enabled
-app.admin.user.email: email
-app.admin.user.plainPassword: mot de passe
-app.admin.user.roles: roles
-app.admin.inventory.user: utilisateur
-app.admin.inventory.item: objet
-app.admin.type-item.id: id
-app.admin.type-item.name: name
-app.admin.type-item.category-item: categorie d'objet
-app.admin.category-item.id: id
-app.admin.category-item.name: nom
-app.admin.visibility-item.user: utilisateur
-app.admin.visibility-item.item: objet
-app.admin.visibility-item.is_valid: est valide
-app.admin.capacity.lvl: niveau
-app.admin.capacity.capacity: capacité
-app.admin.capacity.max-type-item-craft: max de type d'objet fabricable
+app:
+  admin:
+    list:
+      item: liste des objets
+      craft: liste des fabrications
+      inventory: liste des inventaires
+      user: liste des utilisateurs
+      category-item: liste des categories d'objets
+      type-item: liste des type d'objets
+      capacity: liste des capacités
+      visibility-item: liste des objets visible
+    new:
+      nouveau
+      item: nouveau objet
+      craft: nouvelle fabrication
+      inventory: nouveau inventaire
+      user: nouveau utilisateur
+      category-item: nouvelle categorie d'objet
+      type-item: nouveau type d'objet
+      capacity: nouvelle capacité
+      visibility-item: nouveau objet visible
+    item:
+      objet
+      id: id
+      description: description
+      name: nom
+      is_valid: est valide
+      image: image
+      type-item: type d'objet
+    craft:
+      fabrication
+      item-source-one: objet source un
+      item-source-two: objet source deux
+      item-result: resultat objet
+    user:
+      utilisateur
+      id: id
+      name: nom
+      lvl: niveau
+      enabled: enabled
+      email: email
+      plainPassword: mot de passe
+      roles: roles
+    inventory:
+      inventaire
+      user: utilisateur
+      item: objet
+    type-item:
+      type d'objet
+      id: id
+      name: name
+      category-item: categorie d'objet
+    category-item:
+      categorie d'objet
+      id: id
+      name: nom
+    visibility-item:
+      visibilité de l'objet
+      user: utilisateur
+      item: objet
+      is_valid: est valide
+    capacity:
+      capacité
+      lvl: niveau
+      capacity: capacité
+      max-type-item-craft: max de type d'objet fabricable
+homestuck: homestuck
+inventory:
+  add-item: ajouter un objet à l'inventaire
+  remove-item: supprimer un objet de l'inventaire
+block:
+  result-crafting:
+    add-craft-item: créer un nouveau craft
+    craft-item: créer l'objet
+  select-item:
+    source-one: source un
+    source-two: source deux
+modal:
+  title:
+    inventory:
+      add-item: ajouter un objet à l'inventaire
+      remove-item: supprimer un objet de l'inventaire
+  body:
+    inventory:
+      add-item: selectioner l'objet
+      remove-item: selectioner l'objet
+    add-item:
+      name: nom
+      description: description
+      category: categorie
+      type: type
+      add-type: ajouter ce type
+  close: fermer
+  sav: sauvegarder

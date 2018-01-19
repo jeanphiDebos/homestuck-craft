@@ -27,23 +27,33 @@
                                     {{ 'inventory.remove-item'|trans }}
                                 </a>
                             </li>
+                            <li>
+                                <a>
+                                    <span class="glyphicon glyphicon-transfer" aria-hidden="true"></span>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </div>
             </nav>
         </header>
         <main role="main">
-            {% include('block/block-crafting-item.html.twig') %}
+            {% include 'block/block-crafting-item.html.twig' %}
         </main>
     </div>
     <footer class="footer inventory-player">
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#add-item-inventory">
-            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-        </button>
-        <div>
-            {% include('block/block-inventory-item.html.twig') %}
+        <div class="inventory-player-items">
+            <div class="inventory-player-action text-center">
+                <div id="count-inventory-player-items"> x/x</div>
+                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#add-item-inventory">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                </button>
+            </div>
+            <div id="prototype-inventory-player-item" class="n-hide">
+                {% include 'block/block-inventory-item.html.twig' %}
+            </div>
         </div>
     </footer>
-    {% include('modal/modal-add-item-inventory.html.twig') %}
-    {% include('modal/modal-remove-item-inventory.html.twig') %}
+    {% include 'modal/modal-add-item-inventory.html.twig' %}
+    {% include 'modal/modal-remove-item-inventory.html.twig' %}
 {% endblock %}
