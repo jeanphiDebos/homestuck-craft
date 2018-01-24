@@ -1,5 +1,14 @@
 app:
   admin:
+    menu:
+      item: objet
+      craft: fabrication
+      user: utilisateur
+      inventory: inventaire
+      type-item: type d'objet
+      category-item: categorie d'objet
+      visibility-item: visibiliter de l'objet
+      capacity: capacité
     list:
       item: liste des objets
       craft: liste des fabrications
@@ -10,7 +19,6 @@ app:
       capacity: liste des capacités
       visibility-item: liste des objets visible
     new:
-      nouveau
       item: nouveau objet
       craft: nouvelle fabrication
       inventory: nouveau inventaire
@@ -20,7 +28,6 @@ app:
       capacity: nouvelle capacité
       visibility-item: nouveau objet visible
     item:
-      objet
       id: id
       description: description
       name: nom
@@ -28,12 +35,10 @@ app:
       image: image
       type-item: type d'objet
     craft:
-      fabrication
       item-source-one: objet source un
       item-source-two: objet source deux
       item-result: resultat objet
     user:
-      utilisateur
       id: id
       name: nom
       lvl: niveau
@@ -42,25 +47,20 @@ app:
       plainPassword: mot de passe
       roles: roles
     inventory:
-      inventaire
       user: utilisateur
       item: objet
     type-item:
-      type d'objet
       id: id
       name: name
       category-item: categorie d'objet
     category-item:
-      categorie d'objet
       id: id
       name: nom
     visibility-item:
-      visibilité de l'objet
       user: utilisateur
       item: objet
       is_valid: est valide
     capacity:
-      capacité
       lvl: niveau
       capacity: capacité
       max-type-item-craft: max de type d'objet fabricable

@@ -7,14 +7,14 @@ easy_admin:
         max_results: 20
     design:
         menu:
-            - { label: 'app.admin.item', entity: 'Item', default: true}
-            - { label: 'app.admin.craft', entity: 'Craft'}
-            - { label: 'app.admin.user', entity: 'User'}
-            - { label: 'app.admin.inventory', entity: 'Inventory'}
-            - { label: 'app.admin.type-item', entity: 'TypeItem'}
-            - { label: 'app.admin.category-item', entity: 'CategoryItem'}
-            - { label: 'app.admin.visibility-item', entity: 'VisibilityItem'}
-            - { label: 'app.admin.capacity', entity: 'Capacity'}
+            - { label: 'app.admin.menu.item', entity: 'Item', default: true}
+            - { label: 'app.admin.menu.craft', entity: 'Craft'}
+            - { label: 'app.admin.menu.user', entity: 'User'}
+            - { label: 'app.admin.menu.inventory', entity: 'Inventory'}
+            - { label: 'app.admin.menu.type-item', entity: 'TypeItem'}
+            - { label: 'app.admin.menu.category-item', entity: 'CategoryItem'}
+            - { label: 'app.admin.menu.visibility-item', entity: 'VisibilityItem'}
+            - { label: 'app.admin.menu.capacity', entity: 'Capacity'}
         brand_color: '#77B5FE'
 #        form_theme: ['horizontal', 'VichUploaderBundle:Form:fields.html.twig']
         form_theme: ['horizontal']

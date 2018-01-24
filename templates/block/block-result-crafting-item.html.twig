@@ -1,4 +1,4 @@
-<div id="result-crafting" class="row">
+<div id="result-crafting" class="row hide">
     <div class="col-md-12">
         <div class="row">
             <div class="col-md-3">
@@ -14,8 +14,9 @@
             </div>
         </div>
     </div>
-    <div class="col-md-12">
-        <div id="selected-result-crafting-item" class="selected-result-crafting-item n-hide">
+    <div class="col-md-12 margin-height">
+        <div id="selected-result-crafting-item-hide" class="hide">{{ '????????'|trans }}</div>
+        <div id="selected-result-crafting-item" class="selected-result-crafting-item hide">
             {% include 'block/block-inventory-item.html.twig' %}
         </div>
     </div>

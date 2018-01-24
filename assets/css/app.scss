@@ -3,8 +3,15 @@ $fa-font-path: "~font-awesome/fonts";
 
 @import '~bootstrap-sass/assets/stylesheets/bootstrap';
 
+.margin-height {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
 .inventory-player {
-  overflow: auto;
+  margin-top: 15px;
+  min-height: 100px;
+  overflow-x: auto;
 }
 
 .inventory-player-items {
@@ -30,10 +37,6 @@ $fa-font-path: "~font-awesome/fonts";
   }
 }
 
-footer {
-  margin-top: 15px;
-}
-
 .inventory-player-item {
   position: relative;
   width: 148px;
@@ -43,7 +46,7 @@ footer {
 
   &-id {
     position: absolute;
-    top: 160px;
+    top: 0;
     left: 0;
     font-size: 10px;
     z-index: 5;
@@ -51,16 +54,16 @@ footer {
 
   &-name {
     position: absolute;
-    top: 0;
-    left: 0;
+    top: 165px;
+    left: 15px;
     font-size: 14px;
     z-index: 5;
   }
 
   &-image {
     position: absolute;
-    top: 10px;
-    left: 10px;
+    top: 18px;
+    left: 13px;
     max-width: 120px;
     max-height: 150px;
     z-index: 5;
@@ -75,7 +78,7 @@ footer {
 
   &-remove {
     position: absolute;
-    top: 10px;
+    top: 0;
     left: 85px;
     z-index: 5;
   }

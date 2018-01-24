@@ -6,7 +6,8 @@ require('bootstrap-sass');
 
 // Routing.generate('...');
 var objet = {
-    thisvar: '',
+    inventoryItems: [],
+    listingResultCraftingItem: [],
     thisfunction: function () {
         var test = this.thisvar;
 
