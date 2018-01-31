@@ -6,7 +6,7 @@
         <link rel="stylesheet" href="{{ asset('build/css/app.css') }}">
         {% block stylesheets %}{% endblock %}
     </head>
-    <body>
+    <body data-user-id="{{ app.user.id }}">
         {% block body %}{% endblock %}
         <script src="{{ asset('build/js/app.js') }}"></script>
         {% block javascripts %}{% endblock %}

@@ -8,12 +8,15 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\UniqueConstraint;
 
 /**
  * Class Craft
  * @package App\Entity
+ * @ApiResource
  * @ORM\Entity
  * @ORM\Table(name="craft",
  *    uniqueConstraints={
@@ -34,29 +37,34 @@ class Craft
     protected $id;
     /**
      * @var Item
-     * @ORM\ManyToOne(targetEntity="Item", inversedBy="craftsSourceOne")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Item", inversedBy="craftsSourceOne")
      * @ORM\JoinColumn(name="item_source_one_id", referencedColumnName="id", nullable=false)
      */
     protected $itemSourceOne;
     /**
      * @var Item
-     * @ORM\ManyToOne(targetEntity="Item", inversedBy="craftsSourceTwo")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Item", inversedBy="craftsSourceTwo")
      * @ORM\JoinColumn(name="item_source_two_id", referencedColumnName="id", nullable=false)
      */
     protected $itemSourceTwo;
     /**
      * @var Item
-     * @ORM\ManyToOne(targetEntity="Item", inversedBy="craftsResult")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Item", inversedBy="craftsResult")
      * @ORM\JoinColumn(name="item_result_id", referencedColumnName="id", nullable=false)
      */
     protected $itemResult;
+    /**
+     * @var ArrayCollection<VisibilityCraftItem>
+     * @ORM\OneToMany(targetEntity="App\Entity\VisibilityCraftItem", mappedBy="craft")
+     */
+    protected $visibilityCraftItems;
 
     /**
      * Inventory constructor.
      */
     public function __construct()
     {
-
+        $this->visibilityCraftItems = new ArrayCollection();
     }
 
     /**
@@ -113,5 +121,53 @@ class Craft
     public function setItemResult(Item $itemResult)
     {
         $this->itemResult = $itemResult;
+    }
+
+    /**
+     * Add visibilityCraftItems
+     *
+     * @param VisibilityCraftItem $visibilityCraftItem
+     *
+     * @return $this
+     */
+    public function addVisibilityCraftItem(VisibilityCraftItem $visibilityCraftItem)
+    {
+        $this->visibilityCraftItems->add($visibilityCraftItem);
+
+        return $this;
+    }
+
+    /**
+     * Remove visibilityCraftItems
+     *
+     * @param VisibilityCraftItem $visibilityCraftItem
+     */
+    public function removeVisibilityCraftItem(VisibilityCraftItem $visibilityCraftItem)
+    {
+        $this->visibilityCraftItems->removeElement($visibilityCraftItem);
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getVisibilityCraftItems()
+    {
+        return $this->visibilityCraftItems;
+    }
+
+    /**
+     * @param ArrayCollection $visibilityCraftItems
+     */
+    public function setVisibilityCraftItems($visibilityCraftItems)
+    {
+        $this->visibilityCraftItems = $visibilityCraftItems;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return (string)$this->itemResult->getName();
     }
 }

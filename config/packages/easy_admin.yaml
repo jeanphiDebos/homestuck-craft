@@ -13,11 +13,10 @@ easy_admin:
             - { label: 'app.admin.menu.inventory', entity: 'Inventory'}
             - { label: 'app.admin.menu.type-item', entity: 'TypeItem'}
             - { label: 'app.admin.menu.category-item', entity: 'CategoryItem'}
-            - { label: 'app.admin.menu.visibility-item', entity: 'VisibilityItem'}
+            - { label: 'app.admin.menu.visibility-craft-item', entity: 'VisibilityCraftItem'}
             - { label: 'app.admin.menu.capacity', entity: 'Capacity'}
         brand_color: '#77B5FE'
-#        form_theme: ['horizontal', 'VichUploaderBundle:Form:fields.html.twig']
-        form_theme: ['horizontal']
+        form_theme: ['horizontal', 'VichUploaderBundle:Form:fields.html.twig']
     site_name: 'HomeStuck'
     entities:
         Item:
@@ -32,6 +31,7 @@ easy_admin:
                     - { property: 'description', label: 'app.admin.item.description' }
                     - { property: 'image', label: 'app.admin.item.image', type: 'image' }
                     - { property: 'typeItems', label: 'app.admin.item.type-item' }
+                    - { property: 'isVisible', type: 'toggle', label: 'app.admin.item.is_visible' }
                     - { property: 'isValid', type: 'toggle', label: 'app.admin.item.is_valid' }
             form:
                 fields:
@@ -39,8 +39,8 @@ easy_admin:
 #                    - { property: 'description', type: 'ckeditor', label: 'app.admin.item.description' }
                     - { property: 'description', label: 'app.admin.item.description' }
                     - { property: 'imageFile', type: 'vich_image', label: 'app.admin.item.image', type_options: { required: false, allow_delete: false }}
-#                    - { property: 'imageFile', type: 'vich_image', label: 'app.admin.domain.image' }
                     - { property: 'typeItems', label: 'app.admin.item.type-item' }
+                    - { property: 'isVisible', label: 'app.admin.item.is_visible' }
                     - { property: 'isValid', label: 'app.admin.item.is_valid' }
             show:
                 title: 'app.admin.show.domain'
@@ -50,6 +50,7 @@ easy_admin:
                     - { property: 'description', label: 'app.admin.item.description' }
                     - { property: 'image', label: 'app.admin.item.image', type: 'image' }
                     - { property: 'typeItems', label: 'app.admin.item.type-item' }
+                    - { property: 'isVisible', type: 'toggle', label: 'app.admin.item.is_visible' }
                     - { property: 'isValid', type: 'toggle', label: 'app.admin.item.is_valid' }
             new:
                 title: 'app.admin.new.item'
@@ -143,30 +144,30 @@ easy_admin:
                 title: 'app.admin.new.inventory'
             edit:
                 title: 'app.admin.edit.inventory'
-        VisibilityItem:
-            class: App\Entity\VisibilityItem
-            label: 'app.admin.visibility-item'
+        VisibilityCraftItem:
+            class: App\Entity\VisibilityCraftItem
+            label: 'app.admin.visibility-craft-item'
             list:
-                title: 'app.admin.list.visibility-item'
+                title: 'app.admin.list.visibility-craft-item'
                 fields:
-                    - { property: 'user', label: 'app.admin.visibility-item.user' }
-                    - { property: 'item', label: 'app.admin.visibility-item.item' }
-                    - { property: 'isValid', type: 'toggle', label: 'app.admin.visibility-item.is_valid' }
+                    - { property: 'user', label: 'app.admin.visibility-craft-item.user' }
+                    - { property: 'craft', label: 'app.admin.visibility-craft-item.craft' }
+                    - { property: 'isValid', type: 'toggle', label: 'app.admin.visibility-craft-item.is_valid' }
             form:
                 fields:
-                    - { property: 'user', label: 'app.admin.visibility-item.user' }
-                    - { property: 'item', label: 'app.admin.visibility-item.item' }
-                    - { property: 'isValid', label: 'app.admin.visibility-item.is_valid' }
+                    - { property: 'user', label: 'app.admin.visibility-craft-item.user' }
+                    - { property: 'craft', label: 'app.admin.visibility-craft-item.craft' }
+                    - { property: 'isValid', label: 'app.admin.visibility-craft-item.is_valid' }
             show:
-                title: 'app.admin.show.visibility-item'
+                title: 'app.admin.show.visibility-craft-item'
                 fields:
-                    - { property: 'user', label: 'app.admin.visibility-item.user' }
-                    - { property: 'item', label: 'app.admin.visibility-item.item' }
-                    - { property: 'isValid', type: 'toggle', label: 'app.admin.visibility-item.is_valid' }
+                    - { property: 'user', label: 'app.admin.visibility-craft-item.user' }
+                    - { property: 'craft', label: 'app.admin.visibility-craft-item.craft' }
+                    - { property: 'isValid', type: 'toggle', label: 'app.admin.visibility-craft-item.is_valid' }
             new:
-                title: 'app.admin.new.visibility-item'
+                title: 'app.admin.new.visibility-craft-item'
             edit:
-                title: 'app.admin.edit.visibility-item'
+                title: 'app.admin.edit.visibility-craft-item'
         Capacity:
             class: App\Entity\Capacity
             label: 'app.admin.capacity'

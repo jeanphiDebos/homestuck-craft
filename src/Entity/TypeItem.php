@@ -8,12 +8,14 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Class TypeItem
  * @package App\Entity
+ * @ApiResource
  * @ORM\Entity()
  * @ORM\Table(name="type_item")
  */
@@ -21,12 +23,12 @@ class TypeItem extends Taxonomy
 {
     /**
      * @var ArrayCollection<Item>
-     * @ORM\ManyToMany(targetEntity="Item", mappedBy="typeItems", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="App\Entity\Item", mappedBy="typeItems", cascade={"persist"})
      */
     protected $items;
     /**
      * @var CategoryItem
-     * @ORM\ManyToOne(targetEntity="CategoryItem", inversedBy="typeItem")
+     * @ORM\ManyToOne(targetEntity="App\Entity\CategoryItem", inversedBy="typeItem")
      */
     protected $categoryItem;
 

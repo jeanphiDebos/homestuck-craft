@@ -8,6 +8,7 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
@@ -16,6 +17,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 /**
  * Class Item
  * @package App\Entity
+ * @ApiResource
  * @ORM\Entity
  * @ORM\Table(name="item")
  * @Vich\Uploadable
@@ -52,7 +54,12 @@ class Item
     protected $imageFile;
     /**
      * @var boolean
-     * @ORM\Column(name="isvalid", type="boolean", length=255, nullable=true, options={"default":false})
+     * @ORM\Column(name="isvisible", type="boolean", options={"default":false})
+     */
+    private $isVisible;
+    /**
+     * @var boolean
+     * @ORM\Column(name="isvalid", type="boolean", options={"default":false})
      */
     private $isValid;
     /**
@@ -61,13 +68,8 @@ class Item
      */
     protected $inventories;
     /**
-     * @var ArrayCollection<VisibilityItem>
-     * @ORM\OneToMany(targetEntity="VisibilityItem", mappedBy="item")
-     */
-    protected $visibilityItems;
-    /**
      * @var ArrayCollection<TypeItem>
-     * @ORM\ManyToMany(targetEntity="TypeItem", inversedBy="items", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="App\Entity\TypeItem", inversedBy="items", cascade={"persist"})
      * @ORM\JoinTable(
      *      name="items_type",
      *      joinColumns={@ORM\JoinColumn(name="item_id", referencedColumnName="id")},
@@ -97,11 +99,11 @@ class Item
     public function __construct()
     {
         $this->inventories = new ArrayCollection();
-        $this->visibilityItems = new ArrayCollection();
         $this->typeItems = new ArrayCollection();
         $this->craftsSourceOne = new ArrayCollection();
         $this->craftsSourceTwo = new ArrayCollection();
         $this->craftsResult = new ArrayCollection();
+        $this->isVisible = false;
         $this->isValid = false;
     }
 
@@ -178,6 +180,22 @@ class Item
 //        if ($imageFile) {
 //            $this->updatedAt = new \DateTime('now');
 //        }
+    }
+
+    /**
+     * @return bool
+     */
+    public function isVisible()
+    {
+        return $this->isVisible;
+    }
+
+    /**
+     * @param bool $isVisible
+     */
+    public function setIsVisible(bool $isVisible)
+    {
+        $this->isVisible = $isVisible;
     }
 
     /**
@@ -274,46 +292,6 @@ class Item
     public function setTypeItems(ArrayCollection $typeItems)
     {
         $this->typeItems = $typeItems;
-    }
-
-    /**
-     * Add visibilityItem
-     *
-     * @param VisibilityItem $visibilityItem
-     *
-     * @return $this
-     */
-    public function addVisibilityItem(VisibilityItem $visibilityItem)
-    {
-        $this->visibilityItems->add($visibilityItem);
-
-        return $this;
-    }
-
-    /**
-     * Remove visibilityItem
-     *
-     * @param VisibilityItem $visibilityItem
-     */
-    public function removeVisibilityItem(VisibilityItem $visibilityItem)
-    {
-        $this->visibilityItems->removeElement($visibilityItem);
-    }
-
-    /**
-     * @return ArrayCollection
-     */
-    public function getVisibilityItems()
-    {
-        return $this->visibilityItems;
-    }
-
-    /**
-     * @param ArrayCollection $visibilityItems
-     */
-    public function setVisibilityItems($visibilityItems)
-    {
-        $this->visibilityItems = $visibilityItems;
     }
 
     /**

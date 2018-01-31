@@ -8,11 +8,13 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Class Capacity
  * @package App\Entity
+ * @ApiResource
  * @ORM\Entity()
  * @ORM\Table(name="capacity_hs")
  */

@@ -7,7 +7,7 @@ app:
       inventory: inventaire
       type-item: type d'objet
       category-item: categorie d'objet
-      visibility-item: visibiliter de l'objet
+      visibility-craft-item: visibiliter de l'objet
       capacity: capacité
     list:
       item: liste des objets
@@ -17,7 +17,7 @@ app:
       category-item: liste des categories d'objets
       type-item: liste des type d'objets
       capacity: liste des capacités
-      visibility-item: liste des objets visible
+      visibility-craft-item: liste des objets visible
     new:
       item: nouveau objet
       craft: nouvelle fabrication
@@ -26,12 +26,13 @@ app:
       category-item: nouvelle categorie d'objet
       type-item: nouveau type d'objet
       capacity: nouvelle capacité
-      visibility-item: nouveau objet visible
+      visibility-craft-item: nouveau objet visible
     item:
       id: id
       description: description
       name: nom
       is_valid: est valide
+      is_visible: est visible
       image: image
       type-item: type d'objet
     craft:
@@ -56,9 +57,9 @@ app:
     category-item:
       id: id
       name: nom
-    visibility-item:
+    visibility-craft-item:
       user: utilisateur
-      item: objet
+      craft: recette
       is_valid: est valide
     capacity:
       lvl: niveau
@@ -81,6 +82,9 @@ modal:
       add-item: ajouter un objet à l'inventaire
       remove-item: supprimer un objet de l'inventaire
   body:
+    action:
+      add-item:
+      creat-item:
     inventory:
       add-item: selectioner l'objet
       remove-item: selectioner l'objet

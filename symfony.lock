@@ -1,4 +1,16 @@
 {
+    "api-platform/api-pack": {
+        "version": "v1.0.1"
+    },
+    "api-platform/core": {
+        "version": "2.1",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "2.1",
+            "ref": "b50f8aa321cc40c380dda7605aa5cef66f476802"
+        }
+    },
     "behat/transliterator": {
         "version": "v1.2.0"
     },
@@ -101,6 +113,15 @@
     "paragonie/random_compat": {
         "version": "v2.0.11"
     },
+    "phpdocumentor/reflection-common": {
+        "version": "1.0.1"
+    },
+    "phpdocumentor/reflection-docblock": {
+        "version": "4.3.0"
+    },
+    "phpdocumentor/type-resolver": {
+        "version": "0.4.0"
+    },
     "psr/cache": {
         "version": "1.0.1"
     },
@@ -157,6 +178,9 @@
     },
     "symfony/event-dispatcher": {
         "version": "v4.0.0"
+    },
+    "symfony/expression-language": {
+        "version": "v4.0.4"
     },
     "symfony/filesystem": {
         "version": "v4.0.0"
@@ -232,6 +256,9 @@
     },
     "symfony/property-access": {
         "version": "v4.0.1"
+    },
+    "symfony/property-info": {
+        "version": "v4.0.4"
     },
     "symfony/routing": {
         "version": "3.3",
@@ -341,8 +368,14 @@
             "ref": "c4f5755b37fb65b9c6a3cbdae91205c15a137ed4"
         }
     },
+    "webmozart/assert": {
+        "version": "1.3.0"
+    },
     "willdurand/jsonp-callback-validator": {
         "version": "v1.1.0"
+    },
+    "willdurand/negotiation": {
+        "version": "v2.3.1"
     },
     "zendframework/zend-code": {
         "version": "3.3.0"

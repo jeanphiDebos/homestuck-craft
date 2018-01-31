@@ -8,78 +8,75 @@ $fa-font-path: "~font-awesome/fonts";
   margin-bottom: 10px;
 }
 
-.inventory-player {
-  margin-top: 15px;
-  min-height: 100px;
-  overflow-x: auto;
-}
-
-.inventory-player-items {
-  position: relative;
-  padding-left: 50px;
-}
-
-.inventory-player-action {
-  display: inline-block;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 50px;
-}
-
-.inventory-player-items {
-  display: inline-block;
-}
-
 .block-crafting-item {
   .inventory-player-item {
     margin: 0 auto;
   }
 }
 
-.inventory-player-item {
-  position: relative;
-  width: 148px;
-  height: 188px;
-  padding: 5px;
-  background-image: url('../images/item.png');
+.inventory-player {
+  margin-top: 15px;
+  min-height: 100px;
+  overflow-x: auto;
 
-  &-id {
+  &-action {
+    display: inline-block;
     position: absolute;
     top: 0;
     left: 0;
-    font-size: 10px;
-    z-index: 5;
+    width: 50px;
   }
 
-  &-name {
-    position: absolute;
-    top: 165px;
-    left: 15px;
-    font-size: 14px;
-    z-index: 5;
-  }
+  &-item {
+    position: relative;
+    width: 148px;
+    height: 188px;
+    padding: 5px;
+    background-image: url('../images/item.png');
 
-  &-image {
-    position: absolute;
-    top: 18px;
-    left: 13px;
-    max-width: 120px;
-    max-height: 150px;
-    z-index: 5;
-  }
+    &s {
+      position: relative;
+      display: inline-block;
+      padding-left: 50px;
+    }
 
-  &-description {
-    position: absolute;
-    top: 0;
-    left: 70px;
-    z-index: 5;
-  }
+    &-id {
+      position: absolute;
+      top: 0;
+      left: 0;
+      font-size: 10px;
+      z-index: 5;
+    }
 
-  &-remove {
-    position: absolute;
-    top: 0;
-    left: 85px;
-    z-index: 5;
+    &-name {
+      position: absolute;
+      top: 165px;
+      left: 15px;
+      font-size: 14px;
+      z-index: 5;
+    }
+
+    &-image {
+      position: absolute;
+      top: 18px;
+      left: 13px;
+      max-width: 120px;
+      max-height: 150px;
+      z-index: 5;
+    }
+
+    &-description {
+      position: absolute;
+      top: 0;
+      left: 70px;
+      z-index: 5;
+    }
+
+    &-remove {
+      position: absolute;
+      top: 0;
+      left: 85px;
+      z-index: 5;
+    }
   }
 }

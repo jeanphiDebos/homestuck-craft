@@ -8,22 +8,24 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\UniqueConstraint;
 
 /**
  * Class VisibilityItem
  * @package App\Entity
+ * @ApiResource
  * @ORM\Entity
- * @ORM\Table(name="visibility_item",
+ * @ORM\Table(name="visibility_craft_item",
  *    uniqueConstraints={
  *        @UniqueConstraint(
- *          name="visibility_item_unique",
- *          columns={"user_id", "item_id"}
+ *          name="visibility_craft_item_unique",
+ *          columns={"user_id", "craft_id"}
  *        )
  *    })
  */
-class VisibilityItem
+class VisibilityCraftItem
 {
     /**
      * @var integer
@@ -34,19 +36,19 @@ class VisibilityItem
     protected $id;
     /**
      * @var User
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="visibilityItems")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="visibilityCraftItems")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
      */
     protected $user;
     /**
-     * @var Item
-     * @ORM\ManyToOne(targetEntity="Item", inversedBy="visibilityItems")
-     * @ORM\JoinColumn(name="item_id", referencedColumnName="id", nullable=false)
+     * @var Craft
+     * @ORM\ManyToOne(targetEntity="App\Entity\Craft", inversedBy="visibilityCraftItems")
+     * @ORM\JoinColumn(name="craft_id", referencedColumnName="id", nullable=false)
      */
-    protected $item;
+    protected $craft;
     /**
      * @var boolean
-     * @ORM\Column(name="isvalid", type="boolean", length=255, nullable=true, options={"default":false})
+     * @ORM\Column(name="isvalid", type="boolean", options={"default":true})
      */
     protected $isValid;
 
@@ -55,7 +57,7 @@ class VisibilityItem
      */
     public function __construct()
     {
-        $this->isValid = false;
+        $this->isValid = true;
     }
 
     /**
@@ -83,19 +85,19 @@ class VisibilityItem
     }
 
     /**
-     * @return Item
+     * @return Craft
      */
-    public function getItem()
+    public function getCraft()
     {
-        return $this->item;
+        return $this->craft;
     }
 
     /**
-     * @param Item $item
+     * @param Craft $craft
      */
-    public function setItem(Item $item)
+    public function setCraft(Craft $craft)
     {
-        $this->item = $item;
+        $this->craft = $craft;
     }
 
     /**

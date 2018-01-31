@@ -8,12 +8,14 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Class CategoryItem
  * @package App\Entity
+ * @ApiResource
  * @ORM\Entity()
  * @ORM\Table(name="category_item")
  */

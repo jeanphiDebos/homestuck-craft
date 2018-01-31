@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -9,6 +10,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  * Class User
  * @package App\Entity
+ * @ApiResource
  * @ORM\Entity
  * @ORM\Table(name="user")
  */
@@ -32,10 +34,10 @@ class User extends BaseUser
      */
     protected $inventories;
     /**
-     * @var ArrayCollection<VisibilityItem>
-     * @ORM\OneToMany(targetEntity="VisibilityItem", mappedBy="user")
+     * @var ArrayCollection<VisibilityCraftItem>
+     * @ORM\OneToMany(targetEntity="App\Entity\VisibilityCraftItem", mappedBy="user")
      */
-    protected $visibilityItems;
+    protected $visibilityCraftItems;
 
     /**
      * User constructor.
@@ -44,7 +46,7 @@ class User extends BaseUser
     {
         parent::__construct();
         $this->inventories = new ArrayCollection();
-        $this->visibilityItems = new ArrayCollection();
+        $this->visibilityCraftItems = new ArrayCollection();
         $this->lvl = 1;
     }
 
@@ -138,43 +140,43 @@ class User extends BaseUser
     }
 
     /**
-     * Add visibilityItem
+     * Add visibilityCraftItems
      *
-     * @param VisibilityItem $visibilityItem
+     * @param VisibilityCraftItem $visibilityCraftItem
      *
      * @return $this
      */
-    public function addVisibilityItem(VisibilityItem $visibilityItem)
+    public function addVisibilityCraftItem(VisibilityCraftItem $visibilityCraftItem)
     {
-        $this->visibilityItems->add($visibilityItem);
+        $this->visibilityCraftItems->add($visibilityCraftItem);
 
         return $this;
     }
 
     /**
-     * Remove visibilityItem
+     * Remove visibilityCraftItems
      *
-     * @param VisibilityItem $visibilityItem
+     * @param VisibilityCraftItem $visibilityCraftItem
      */
-    public function removeVisibilityItem(VisibilityItem $visibilityItem)
+    public function removeVisibilityCraftItem(VisibilityCraftItem $visibilityCraftItem)
     {
-        $this->visibilityItems->removeElement($visibilityItem);
+        $this->visibilityCraftItems->removeElement($visibilityCraftItem);
     }
 
     /**
      * @return ArrayCollection
      */
-    public function getVisibilityItems()
+    public function getVisibilityCraftItems()
     {
-        return $this->visibilityItems;
+        return $this->visibilityCraftItems;
     }
 
     /**
-     * @param ArrayCollection $visibilityItems
+     * @param ArrayCollection $visibilityCraftItems
      */
-    public function setVisibilityItems($visibilityItems)
+    public function setVisibilityCraftItems($visibilityCraftItems)
     {
-        $this->visibilityItems = $visibilityItems;
+        $this->visibilityCraftItems = $visibilityCraftItems;
     }
 
     /**

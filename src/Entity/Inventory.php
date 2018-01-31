@@ -8,11 +8,13 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Class Inventory
  * @package App\Entity
+ * @ApiResource
  * @ORM\Entity
  * @ORM\Table(name="inventory")
  */
@@ -33,7 +35,7 @@ class Inventory
     protected $user;
     /**
      * @var Item
-     * @ORM\ManyToOne(targetEntity="Item", inversedBy="inventories")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Item", inversedBy="inventories")
      * @ORM\JoinColumn(name="item_id", referencedColumnName="id", nullable=false)
      */
     protected $item;
