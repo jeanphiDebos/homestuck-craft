@@ -22,7 +22,7 @@ use Doctrine\ORM\Mapping\UniqueConstraint;
  *    uniqueConstraints={
  *        @UniqueConstraint(
  *          name="craft_unique",
- *          columns={"item_source_one_id", "item_source_two_id", "item_result_id"}
+ *          columns={"item_source_one_id", "item_source_two_id", "operation"}
  *        )
  *    })
  */
@@ -47,6 +47,11 @@ class Craft
      * @ORM\JoinColumn(name="item_source_two_id", referencedColumnName="id", nullable=false)
      */
     protected $itemSourceTwo;
+    /**
+     * @var string
+     * @ORM\Column(type="string", columnDefinition="enum('OR', 'AND')")
+     */
+    protected $operation;
     /**
      * @var Item
      * @ORM\ManyToOne(targetEntity="App\Entity\Item", inversedBy="craftsResult")
@@ -105,6 +110,22 @@ class Craft
     public function setItemSourceTwo(Item $itemSourceTwo)
     {
         $this->itemSourceTwo = $itemSourceTwo;
+    }
+
+    /**
+     * @return int
+     */
+    public function getOperation()
+    {
+        return $this->operation;
+    }
+
+    /**
+     * @param int $operation
+     */
+    public function setOperation($operation)
+    {
+        $this->operation = $operation;
     }
 
     /**

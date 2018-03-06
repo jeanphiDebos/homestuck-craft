@@ -20,13 +20,13 @@ abstract class Taxonomy
     /**
      * @var integer
      * @ORM\Id()
-     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Column(type="integer", nullable=false)
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
     /**
      * @var string
-     * @ORM\Column(name="name", type="string", length=255, nullable=false)
+     * @ORM\Column(type="string", length=255, nullable=false)
      */
     protected $name;
     /**

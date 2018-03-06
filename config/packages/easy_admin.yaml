@@ -29,6 +29,7 @@ easy_admin:
                     - { property: 'id', label: 'app.admin.item.id' }
                     - { property: 'name', label: 'app.admin.item.name' }
                     - { property: 'description', label: 'app.admin.item.description' }
+                    - { property: 'cost', label: 'app.admin.item.cost' }
                     - { property: 'image', label: 'app.admin.item.image', type: 'image' }
                     - { property: 'typeItems', label: 'app.admin.item.type-item' }
                     - { property: 'isVisible', type: 'toggle', label: 'app.admin.item.is_visible' }
@@ -38,7 +39,8 @@ easy_admin:
                     - { property: 'name', label: 'app.admin.item.name' }
 #                    - { property: 'description', type: 'ckeditor', label: 'app.admin.item.description' }
                     - { property: 'description', label: 'app.admin.item.description' }
-                    - { property: 'imageFile', type: 'vich_image', label: 'app.admin.item.image', type_options: { required: false, allow_delete: false }}
+                    - { property: 'cost', label: 'app.admin.item.cost' }
+                    - { property: 'imageFile', type: 'vich_image', label: 'app.admin.item.image', type_options: { required: true, allow_delete: false }}
                     - { property: 'typeItems', label: 'app.admin.item.type-item' }
                     - { property: 'isVisible', label: 'app.admin.item.is_visible' }
                     - { property: 'isValid', label: 'app.admin.item.is_valid' }
@@ -48,6 +50,7 @@ easy_admin:
                     - { property: 'id', label: 'app.admin.item.id' }
                     - { property: 'name', label: 'app.admin.item.name' }
                     - { property: 'description', label: 'app.admin.item.description' }
+                    - { property: 'cost', label: 'app.admin.item.cost' }
                     - { property: 'image', label: 'app.admin.item.image', type: 'image' }
                     - { property: 'typeItems', label: 'app.admin.item.type-item' }
                     - { property: 'isVisible', type: 'toggle', label: 'app.admin.item.is_visible' }
@@ -107,17 +110,21 @@ easy_admin:
                 fields:
                     - { property: 'itemSourceOne', label: 'app.admin.craft.item-source-one' }
                     - { property: 'itemSourceTwo', label: 'app.admin.craft.item-source-two' }
+                    - { property: 'operation', label: 'app.admin.craft.operation' }
                     - { property: 'itemResult', label: 'app.admin.craft.item-result' }
             form:
                 fields:
                     - { property: 'itemSourceOne', label: 'app.admin.craft.item-source-one' }
                     - { property: 'itemSourceTwo', label: 'app.admin.craft.item-source-two' }
+                    - { property: 'operation', label: 'app.admin.craft.operation' }
+                    - { property: 'operation', type: 'choice', type_options: { choices: {'Ou':'OR', 'Et':'AND' } }  }
                     - { property: 'itemResult', label: 'app.admin.craft.item-result' }
             show:
                 title: 'app.admin.show.craft'
                 fields:
                     - { property: 'itemSourceOne', label: 'app.admin.craft.item-source-one' }
                     - { property: 'itemSourceTwo', label: 'app.admin.craft.item-source-two' }
+                    - { property: 'operation', label: 'app.admin.craft.operation' }
                     - { property: 'itemResult', label: 'app.admin.craft.item-result' }
             new:
                 title: 'app.admin.new.craft'

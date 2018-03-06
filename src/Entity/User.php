@@ -24,10 +24,15 @@ class User extends BaseUser
      */
     protected $id;
     /**
-     * @var string
-     * @ORM\Column(name="lvl", type="integer", nullable=false, options={"default" : 1})
+     * @var integer
+     * @ORM\Column(type="integer", nullable=false, options={"default" : 1})
      */
     protected $lvl;
+    /**
+     * @var integer
+     * @ORM\Column(type="integer", nullable=false, options={"default" : 1})
+     */
+    protected $resource;
     /**
      * @var ArrayCollection<Inventory>
      * @ORM\OneToMany(targetEntity="App\Entity\Inventory", mappedBy="user")
@@ -48,6 +53,7 @@ class User extends BaseUser
         $this->inventories = new ArrayCollection();
         $this->visibilityCraftItems = new ArrayCollection();
         $this->lvl = 1;
+        $this->resource = 1;
     }
 
     /**
@@ -59,7 +65,7 @@ class User extends BaseUser
     }
 
     /**
-     * @return string
+     * @return integer
      */
     public function getLvl()
     {
@@ -67,11 +73,27 @@ class User extends BaseUser
     }
 
     /**
-     * @param string $lvl
+     * @param integer $lvl
      */
     public function setLvl(string $lvl)
     {
         $this->lvl = $lvl;
+    }
+
+    /**
+     * @return integer
+     */
+    public function getResource()
+    {
+        return $this->resource;
+    }
+
+    /**
+     * @param integer $resource
+     */
+    public function setResource(string $resource)
+    {
+        $this->resource = $resource;
     }
 
     /**

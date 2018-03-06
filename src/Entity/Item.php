@@ -33,7 +33,7 @@ class Item
     protected $id;
     /**
      * @var string
-     * @ORM\Column(name="name", type="string", length=255, nullable=false)
+     * @ORM\Column(type="string", length=255, nullable=false)
      */
     protected $name;
     /**
@@ -41,6 +41,11 @@ class Item
      * @ORM\Column(type="text")
      */
     protected $description;
+    /**
+     * @var integer
+     * @ORM\Column(type="integer")
+     */
+    protected $cost;
     /**
      * @var string
      * @ORM\Column(type="string", length=255)
@@ -145,6 +150,22 @@ class Item
     public function setDescription(string $description)
     {
         $this->description = $description;
+    }
+
+    /**
+     * @return int
+     */
+    public function getCost()
+    {
+        return $this->cost;
+    }
+
+    /**
+     * @param int $cost
+     */
+    public function setCost(string $cost)
+    {
+        $this->cost = $cost;
     }
 
     /**

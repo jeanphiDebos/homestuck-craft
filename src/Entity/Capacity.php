@@ -23,12 +23,12 @@ class Capacity
     /**
      * @var string
      * @ORM\Id
-     * @ORM\Column(name="lvl", type="integer", nullable=false)
+     * @ORM\Column(type="integer", nullable=false)
      */
     protected $lvl;
     /**
      * @var integer
-     * @ORM\Column(name="capacity", type="integer", nullable=false, options={"default" : 0})
+     * @ORM\Column(type="integer", nullable=false, options={"default" : 0})
      */
     protected $capacity;
     /**
