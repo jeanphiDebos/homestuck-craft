@@ -9,12 +9,18 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiFilter;
+use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Class Inventory
  * @package App\Entity
- * @ApiResource
+ * @ApiResource(attributes={
+ *     "normalization_context"={"groups"={"readInventory"}}
+ * })
+ * @ApiFilter(SearchFilter::class, properties={"user.id": "exact", "user.id": "exact"})
  * @ORM\Entity
  * @ORM\Table(name="inventory")
  */
@@ -25,18 +31,21 @@ class Inventory
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Groups({"readInventory"})
      */
     protected $id;
     /**
      * @var User
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="inventories")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
+     * @Groups({"readInventory"})
      */
     protected $user;
     /**
      * @var Item
      * @ORM\ManyToOne(targetEntity="App\Entity\Item", inversedBy="inventories")
      * @ORM\JoinColumn(name="item_id", referencedColumnName="id", nullable=false)
+     * @Groups({"readInventory"})
      */
     protected $item;
 

@@ -2,6 +2,9 @@ $icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
 $fa-font-path: "~font-awesome/fonts";
 
 @import '~bootstrap-sass/assets/stylesheets/bootstrap';
+body {
+  background-color: #ccc;
+}
 
 .margin-height {
   margin-top: 10px;
@@ -29,8 +32,10 @@ $fa-font-path: "~font-awesome/fonts";
 
   &-item {
     position: relative;
+    display: inline-block;
     width: 148px;
     height: 188px;
+    margin: 0 5px;
     padding: 5px;
     background-image: url('../images/item.png');
 
@@ -44,6 +49,7 @@ $fa-font-path: "~font-awesome/fonts";
       position: absolute;
       top: 0;
       left: 0;
+      padding-left: 5px;
       font-size: 10px;
       z-index: 5;
     }
@@ -60,15 +66,15 @@ $fa-font-path: "~font-awesome/fonts";
       position: absolute;
       top: 18px;
       left: 13px;
-      max-width: 120px;
-      max-height: 150px;
+      max-width: 102px;
+      max-height: 144px;
       z-index: 5;
     }
 
     &-description {
       position: absolute;
-      top: 0;
-      left: 70px;
+      top: 6px;
+      left: 122px;
       z-index: 5;
     }
 

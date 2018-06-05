@@ -66,6 +66,9 @@ app:
       capacity: capacité
       max-type-item-craft: max de type d'objet fabricable
 homestuck: homestuck
+player:
+  book: livre de recette
+  transfer: tranferer un objet
 inventory:
   add-item: ajouter un objet à l'inventaire
   remove-item: supprimer un objet de l'inventaire

@@ -9,6 +9,7 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
@@ -29,26 +30,31 @@ class Item
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Groups({"readInventory"})
      */
     protected $id;
     /**
      * @var string
      * @ORM\Column(type="string", length=255, nullable=false)
+     * @Groups({"readInventory"})
      */
     protected $name;
     /**
      * @var string
      * @ORM\Column(type="text")
+     * @Groups({"readInventory"})
      */
     protected $description;
     /**
      * @var integer
      * @ORM\Column(type="integer")
+     * @Groups({"readInventory"})
      */
     protected $cost;
     /**
      * @var string
      * @ORM\Column(type="string", length=255)
+     * @Groups({"readInventory"})
      */
     protected $image;
 
@@ -60,11 +66,13 @@ class Item
     /**
      * @var boolean
      * @ORM\Column(name="isvisible", type="boolean", options={"default":false})
+     * @Groups({"readInventory"})
      */
     private $isVisible;
     /**
      * @var boolean
      * @ORM\Column(name="isvalid", type="boolean", options={"default":false})
+     * @Groups({"readInventory"})
      */
     private $isValid;
     /**
@@ -80,6 +88,7 @@ class Item
      *      joinColumns={@ORM\JoinColumn(name="item_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="type_item_id", referencedColumnName="id")}
      * )
+     * @Groups({"readInventory"})
      */
     private $typeItems;
     /**

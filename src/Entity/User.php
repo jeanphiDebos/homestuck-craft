@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -21,16 +22,19 @@ class User extends BaseUser
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Groups({"readInventory"})
      */
     protected $id;
     /**
      * @var integer
      * @ORM\Column(type="integer", nullable=false, options={"default" : 1})
+     * @Groups({"readInventory"})
      */
     protected $lvl;
     /**
      * @var integer
      * @ORM\Column(type="integer", nullable=false, options={"default" : 1})
+     * @Groups({"readInventory"})
      */
     protected $resource;
     /**

@@ -4,30 +4,60 @@
  */
 require('bootstrap-sass');
 
-// Routing.generate('...');
+/*
+$.get("demo_test.asp", function(data, status){
+    alert("Data: " + data + "\nStatus: " + status);
+});
+
+$.post("demo_test_post.asp", {
+    name: "Donald Duck",
+    city: "Duckburg"
+}, function(data, status){
+    alert("Data: " + data + "\nStatus: " + status);
+});
+$.get('inc/user.json', function( data ) {
+    $('#result').html( data.name + ' : ' +  data.email );
+}, 'json');
+*/
+
 $(document).ready(function () {
     var homestuck = {
+        selectorPrototypeItem: null,
+        selectorInventoryPlayer: null,
+        selectorCountInventory: null,
+        itemImageDir: './uploads/images/items/',
         initApp: function (id, selectorPrototypeItem, selectorInventoryPlayer, selectorCountInventory) {
-            this.inventory.selectorPrototypeItem = selectorPrototypeItem;
-            this.inventory.selectorInventoryPlayer = selectorCountInventory;
-            this.inventory.selectorCountInventory = selectorCountInventory;
-            this.user.setUser(id);
+            this.selectorPrototypeItem = selectorPrototypeItem;
+            this.selectorInventoryPlayer = selectorInventoryPlayer;
+            this.selectorCountInventory = selectorCountInventory;
+            this.user.id = id;
+            this.user.setUser();
             this.inventory.setInventoryItems();
         },
         user: {
+            apiUsersGetItem: './api/users/',
             id: null,
             lvl: 0,
-            setUser: function (id) {
-
+            setUser: function () {
+                $.get(this.apiUsersGetItem + homestuck.user.id, 'json').done(function(data) {
+                    homestuck.user.lvl = data.lvl;
+                }).fail(function(data) {
+                    console.error("error: ajax apiUsersGetItem function setUser: " + data);
+                })
             }
         },
         inventory: {
-            selectorPrototypeItem: null,
-            selectorInventoryPlayer: null,
-            selectorCountInventory: null,
+            apiInventoriesGetCollection: './api/inventories',
             inventoryItems: {},
             setInventoryItems: function () {
-
+                $.get(this.apiInventoriesGetCollection, {'user.id': homestuck.user.id}, 'json').done(function(data) {
+                    homestuck.inventory.inventoryItems = data;
+                    $.each(data, function(index, value) {
+                      homestuck.formatInput.addItemInInventory(homestuck.selectorInventoryPlayer, value.item);
+                    });
+                }).fail(function(data) {
+                    console.error("error: ajax apiInventoriesGetCollection function setInventoryItems: " + data);
+                })
             },
             addItemInventory: function (idItem) {
                 // this.formatInput.addItemInInventory();
@@ -84,17 +114,26 @@ $(document).ready(function () {
                 this.item.listItems()
             },
             addItemInInventory: function (selector, item) {
-                this.initItemProto(selector, item);
+                console.log(item);
+                selector.append(this.initItemProto(item));
             },
             showCraftingItem: function (selector) {
                 // this.craft.currentSelectCraftingItem
                 // this.initItemProto(selector, craftingItem);
             },
             refeshItemCraftSeleted: function (selector, item) {
-                this.initItemProto(selector, item);
+                // this.initItemProto(selector, item);
             },
-            initItemProto: function (selector, item) {
+            initItemProto: function (item) {
+                var newItem = homestuck.selectorPrototypeItem.find('.inventory-player-item').clone();
+                newItem.data('id-item', item.id);
+                newItem.find('.inventory-player-item-id').empty().append(item.id);
+                newItem.find('.inventory-player-item-name').empty().append(item.name);
+                newItem.find('.inventory-player-item-image').attr('src', homestuck.itemImageDir + item.image);
+                newItem.find('.inventory-player-item-remove').data('id-item', item.id);
+                newItem.find('.inventory-player-item-description').attr('data-content', item.id).popover();
 
+                return newItem;
             }
         }
     };

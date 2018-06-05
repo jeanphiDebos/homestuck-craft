@@ -2,3 +2,6 @@ api_platform:
     resource: .
     type: api_platform
     prefix: /api
+swagger_ui:
+    path: /apidocs
+    controller: api_platform.swagger.action.ui
