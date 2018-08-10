@@ -14,11 +14,14 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
 
 /**
  * Class Item
  * @package App\Entity
  * @ApiResource
+ * @ApiFilter(BooleanFilter::class, properties={"isVisible", "isValid"})
  * @ORM\Entity
  * @ORM\Table(name="item")
  * @Vich\Uploadable
@@ -30,7 +33,7 @@ class Item
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Groups({"readInventory"})
+     * @Groups({"readInventory", "writeInventory"})
      */
     protected $id;
     /**

@@ -18,7 +18,8 @@ use Doctrine\ORM\Mapping as ORM;
  * Class Inventory
  * @package App\Entity
  * @ApiResource(attributes={
- *     "normalization_context"={"groups"={"readInventory"}}
+ *     "normalization_context"={"groups"={"readInventory"}},
+ *     "denormalization_context"={"groups"={"writeInventory"}}
  * })
  * @ApiFilter(SearchFilter::class, properties={"user.id": "exact", "user.id": "exact"})
  * @ORM\Entity
@@ -38,14 +39,14 @@ class Inventory
      * @var User
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="inventories")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
-     * @Groups({"readInventory"})
+     * @Groups({"readInventory", "writeInventory"})
      */
     protected $user;
     /**
      * @var Item
      * @ORM\ManyToOne(targetEntity="App\Entity\Item", inversedBy="inventories")
      * @ORM\JoinColumn(name="item_id", referencedColumnName="id", nullable=false)
-     * @Groups({"readInventory"})
+     * @Groups({"readInventory", "writeInventory"})
      */
     protected $item;
 

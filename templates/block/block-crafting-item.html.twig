@@ -3,7 +3,13 @@
         {% include 'block/block-select-item.html.twig' with {'source': 'source-one'} %}
     </div>
     <div class="col-md-1">
-        <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+        <button type="button" class="btn btn-info" id="crafting-item-or">
+            <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+        </button>
+        <div>---</div>
+        <button type="button" class="btn btn-info" id="crafting-item-and">
+            <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
+        </button>
     </div>
     <div class="col-md-3">
         {% include 'block/block-select-item.html.twig' with {'source': 'source-two'} %}

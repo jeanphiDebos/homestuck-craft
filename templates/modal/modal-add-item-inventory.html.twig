@@ -5,14 +5,14 @@
                 <h5 class="modal-title" id="exampleModalLabel">{{ 'modal.title.inventory.add-item'|trans }}</h5>
             </div>
             <div class="modal-body">
-                <div id="modal-action-add-item-inventory" class="margin-height text-center">
+                <div id="modal-action-add-item-inventory" class="margin-height text-center hide">
                     <button class="action-add-ite hide btn btn-primary">{{ 'modal.body.action.add-item'|trans }}</button>
                     <button class="action-creat-item btn btn-primary">{{ 'modal.body.action.creat-item'|trans }}</button>
                 </div>
                 <form id="modal-inventory-add-item" class="modal-form-inventory-add-item">
                     <div class="form-group">
                         <label for="select-inventory-add-item">{{ 'modal.body.inventory.add-item'|trans }}</label>
-                        <select class="form-control form-control-lg select-listing-item" id="select-inventory-add-item"></select>
+                        <select class="form-control form-control-lg select-listing-item hide" id="select-inventory-add-item"></select>
                     </div>
                 </form>
                 <form id="modal-add-item" class="modal-form-add-item hide">
