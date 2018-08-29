@@ -9,11 +9,16 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiFilter;
+use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Class Capacity
  * @package App\Entity
+ * @ApiResource
+ * @ApiFilter(SearchFilter::class, properties={"lvl": "exact"})
  * @ApiResource
  * @ORM\Entity()
  * @ORM\Table(name="capacity_hs")
@@ -92,5 +97,4 @@ class Capacity
     {
         $this->maxTypeItemCraft = $maxTypeItemCraft;
     }
-
 }
