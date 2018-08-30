@@ -33,34 +33,33 @@ class Item
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Groups({"readInventory", "writeInventory"})
+     * @Groups({"readInventory", "writeInventory", "readCraft", "writeCraft"})
      */
     protected $id;
     /**
      * @var string
      * @ORM\Column(type="string", length=255, nullable=false)
-     * @Groups({"readInventory"})
+     * @Groups({"readInventory", "readCraft"})
      */
     protected $name;
     /**
      * @var string
      * @ORM\Column(type="text")
-     * @Groups({"readInventory"})
+     * @Groups({"readInventory", "readCraft"})
      */
     protected $description;
     /**
      * @var integer
      * @ORM\Column(type="integer")
-     * @Groups({"readInventory"})
+     * @Groups({"readInventory", "readCraft"})
      */
     protected $cost;
     /**
      * @var string
      * @ORM\Column(type="string", length=255)
-     * @Groups({"readInventory"})
+     * @Groups({"readInventory", "readCraft"})
      */
     protected $image;
-
     /**
      * @var File
      * @Vich\UploadableField(mapping="item_images", fileNameProperty="image")
@@ -69,13 +68,13 @@ class Item
     /**
      * @var boolean
      * @ORM\Column(name="isvisible", type="boolean", options={"default":false})
-     * @Groups({"readInventory"})
+     * @Groups({"readInventory", "readCraft"})
      */
     private $isVisible;
     /**
      * @var boolean
      * @ORM\Column(name="isvalid", type="boolean", options={"default":false})
-     * @Groups({"readInventory"})
+     * @Groups({"readInventory", "readCraft"})
      */
     private $isValid;
     /**
@@ -91,7 +90,7 @@ class Item
      *      joinColumns={@ORM\JoinColumn(name="item_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="type_item_id", referencedColumnName="id")}
      * )
-     * @Groups({"readInventory"})
+     * @Groups({"readInventory", "readCraft"})
      */
     private $typeItems;
     /**

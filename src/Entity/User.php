@@ -22,19 +22,19 @@ class User extends BaseUser
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Groups({"readInventory", "writeInventory"})
+     * @Groups({"readInventory", "writeInventory", "readCraft"})
      */
     protected $id;
     /**
      * @var integer
      * @ORM\Column(type="integer", nullable=false, options={"default" : 1})
-     * @Groups({"readInventory"})
+     * @Groups({"readInventory", "readCraft"})
      */
     protected $lvl;
     /**
      * @var integer
      * @ORM\Column(type="integer", nullable=false, options={"default" : 1})
-     * @Groups({"readInventory"})
+     * @Groups({"readInventory", "readCraft"})
      */
     protected $resource;
     /**

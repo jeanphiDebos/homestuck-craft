@@ -11,19 +11,25 @@ $(document).ready(function () {
     selectorCountInventory: null,
     selectInventoryRemoveItem: null,
     selectInventoryAddItem: null,
-    selectResultCraftingItem: null,
+    resultCrafting: null,
+    selectedResultCraftingItem: null,
+    showCraftingItem: null,
+    hiddenCraftingItem: null,
     selectInventoryItemSourceOne: null,
     selectInventoryItemSourceTwo: null,
     itemSourceOne: null,
     itemSourceTwo: null,
     itemImageDir: './uploads/images/items/',
-    initApp: function (id, selectorPrototypeItem, selectorInventoryPlayer, selectorCountInventory, selectInventoryRemoveItem, selectInventoryAddItem, selectResultCraftingItem, selectInventoryItemSourceOne, selectInventoryItemSourceTwo, itemSourceOne, itemSourceTwo) {
+    initApp: function (id, selectorPrototypeItem, selectorInventoryPlayer, selectorCountInventory, selectInventoryRemoveItem, selectInventoryAddItem, resultCrafting, selectedResultCraftingItem, showCraftingItem, hiddenCraftingItem, selectInventoryItemSourceOne, selectInventoryItemSourceTwo, itemSourceOne, itemSourceTwo) {
       this.selectorPrototypeItem = selectorPrototypeItem;
       this.selectorInventoryPlayer = selectorInventoryPlayer;
       this.selectorCountInventory = selectorCountInventory;
       this.selectInventoryRemoveItem = selectInventoryRemoveItem;
       this.selectInventoryAddItem = selectInventoryAddItem;
-      this.selectResultCraftingItem = selectResultCraftingItem;
+      this.resultCrafting = resultCrafting;
+      this.selectedResultCraftingItem = selectedResultCraftingItem;
+      this.showCraftingItem = showCraftingItem;
+      this.hiddenCraftingItem = hiddenCraftingItem;
       this.selectInventoryItemSourceOne = selectInventoryItemSourceOne;
       this.selectInventoryItemSourceTwo = selectInventoryItemSourceTwo;
       this.itemSourceOne = itemSourceOne;
@@ -93,15 +99,16 @@ $(document).ready(function () {
           }
         });
       },
-      findItemInventory: function (idInventoryItem){
+      findItemInventory: function (idInventoryItem) {
         return homestuck.inventory.inventoryItems.filter(function (inventoryItem) {
           return parseInt(inventoryItem.id) === parseInt(idInventoryItem)
         });
       }
     },
     craft: {
-      resultsCraftingItem: {},
-      currentSelectCraftingItem: null,
+      apiCrafts: './api/crafts',
+      resultsCraftingItems: {itemResult: {}, visibilityCraftItems: []},
+      currentSelectCraftingItem: 0,
       listResultCraftingItem: function () {
         let idItemSourceOne = homestuck.selectInventoryItemSourceOne.val();
         let idItemSourceTwo = homestuck.selectInventoryItemSourceTwo.val();
@@ -114,15 +121,50 @@ $(document).ready(function () {
           homestuck.inventory.findItemInventory(idItemSourceTwo)[0].item,
           idItemSourceTwo
         )).removeClass('hide');
-        // this.formatInput.showCraftingItem(selectorResultCaft);
+
+        homestuck.craft.currentSelectCraftingItem = 0;
+
+        homestuck.resultCrafting.addClass('hide');
+        homestuck.showCraftingItem.addClass('hide');
+        homestuck.hiddenCraftingItem.addClass('hide');
+      },
+      initCraftingItems: function (isOr) {
+        $.get(this.apiCrafts, {
+          'itemSourceOne.id': homestuck.inventory.findItemInventory(homestuck.selectInventoryItemSourceOne.val())[0].item.id,
+          'itemSourceTwo.id': homestuck.inventory.findItemInventory(homestuck.selectInventoryItemSourceTwo.val())[0].item.id,
+          'operation': isOr ? 'OR' : 'AND'
+        }, 'json').done(function (data) {
+          homestuck.craft.currentSelectCraftingItem = 0;
+          homestuck.craft.resultsCraftingItems = data;
+
+          homestuck.resultCrafting.removeClass('hide');
+
+          if (homestuck.craft.resultsCraftingItems.length !== 0) {
+            homestuck.craft.showCraftingItem(0);
+          }
+        }).fail(function (data) {
+          console.error("error: ajax apiCrafts function showCraftingItem: " + data);
+        })
+      },
+      craftItem: function() {
+        // homestuck.selectedResultCraftingItem.attr('data-id-craft-item')
+        // remove source item
+        homestuck.inventory.addItemInventory(homestuck.selectedResultCraftingItem.attr('data-id-item'));
+        // desable option & crafting
       },
       selectNextCraftingItem: function () {
-        // this.craft.currentSelectCraftingItem
-        // this.formatInput.showCraftingItem(selector);
+        homestuck.craft.currentSelectCraftingItem++;
+        if (homestuck.craft.currentSelectCraftingItem >= homestuck.craft.resultsCraftingItems.length) {
+          homestuck.craft.currentSelectCraftingItem = 0;
+        }
+        homestuck.craft.showCraftingItem(homestuck.craft.currentSelectCraftingItem);
       },
       selectBackCraftingItem: function () {
-        // this.craft.currentSelectCraftingItem
-        // this.formatInput.showCraftingItem(selector);
+        homestuck.craft.currentSelectCraftingItem--;
+        if (homestuck.craft.currentSelectCraftingItem < 0) {
+          homestuck.craft.currentSelectCraftingItem = homestuck.craft.resultsCraftingItems.length - 1;
+        }
+        homestuck.craft.showCraftingItem(homestuck.craft.currentSelectCraftingItem);
       },
       addItemInventoryByCraft: function () {
         this.inventory.addItemInventory(this.currentSelectCraftingItem);
@@ -130,6 +172,25 @@ $(document).ready(function () {
       },
       addVisibilityCraftItem: function () {
         // this.craft.currentSelectCraftingItem
+      },
+      showCraftingItem: function (index) {
+        if (homestuck.craft.resultsCraftingItems[index]) {
+          homestuck.selectedResultCraftingItem
+            .attr('data-id-craft-item', homestuck.craft.resultsCraftingItems[index].id)
+            .attr('data-id-item', homestuck.craft.resultsCraftingItems[index].itemResult.id);
+          if (homestuck.craft.resultsCraftingItems[index].visibilityCraftItems.filter(function (visibilityCraftItem) {
+            return parseInt(visibilityCraftItem.user.id) === parseInt(homestuck.user.id)
+          }).length === 0) {
+            homestuck.hiddenCraftingItem.removeClass('hide');
+            homestuck.showCraftingItem.addClass('hide');
+          } else {
+            homestuck.hiddenCraftingItem.addClass('hide');
+            homestuck.showCraftingItem.empty().append(homestuck.formatInput.initItemProto(
+              homestuck.craft.resultsCraftingItems[index].itemResult,
+              ''
+            )).removeClass('hide');
+          }
+        }
       }
     },
     item: {
@@ -169,10 +230,6 @@ $(document).ready(function () {
       addItemInInventory: function (selector, item, idInventory) {
         selector.append(this.initItemProto(item, idInventory));
       },
-      showCraftingItem: function (selector) {
-        // this.craft.currentSelectCraftingItem
-        // this.initItemProto(selector, craftingItem);
-      },
       initItemProto: function (item, idInventory) {
         let newItem = homestuck.selectorPrototypeItem.find('.inventory-player-item').clone();
         newItem.attr('id-inventory-item', idInventory);
@@ -199,7 +256,10 @@ $(document).ready(function () {
     $('#count-inventory-player-items'),
     $('select#select-inventory-remove-item'),
     $('select#select-inventory-add-item'),
+    $('#result-crafting'),
     $('#selected-result-crafting-item'),
+    $('#show-crafting-item'),
+    $('#hidden-crafting-item'),
     $('#source-one select.select-listing-inventory-item'),
     $('#source-two select.select-listing-inventory-item'),
     $('#selected-inventory-item-source-one'),
@@ -233,6 +293,14 @@ $(document).ready(function () {
     $('#modal-inventory-add-item, #modal-add-item').toggle();
   });
 
+  $('#crafting-item-or').click(function () {
+    homestuck.craft.initCraftingItems(true);
+  });
+
+  $('#crafting-item-and').click(function () {
+    homestuck.craft.initCraftingItems(false);
+  });
+
   $('#crafting-item').click(function () {
     homestuck.craft.addItemInventoryByCraft();
     // show modal result new crafting item ?
@@ -243,7 +311,7 @@ $(document).ready(function () {
   });
 
   $('.back-result-crafting-item').click(function () {
-    homestuck.craft.selectBackCraftingItem();
+    homestuck.inventory.craftItem();
   });
 
   $('.next-result-crafting-item').click(function () {

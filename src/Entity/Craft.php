@@ -11,18 +11,25 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiFilter;
+use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Doctrine\ORM\Mapping\UniqueConstraint;
 
 /**
  * Class Craft
  * @package App\Entity
- * @ApiResource
+ * @ApiResource(attributes={
+ *     "normalization_context"={"groups"={"readCraft"}},
+ *     "denormalization_context"={"groups"={"writeCraft"}}
+ * })
+ * @ApiFilter(SearchFilter::class, properties={"itemSourceOne.id": "exact", "itemSourceTwo.id": "exact", "operation": "exact"})
  * @ORM\Entity
  * @ORM\Table(name="craft",
  *    uniqueConstraints={
  *        @UniqueConstraint(
  *          name="craft_unique",
- *          columns={"item_source_one_id", "item_source_two_id", "operation"}
+ *          columns={"item_source_one_id", "item_source_two_id", "operation", "item_result_id"}
  *        )
  *    })
  */
@@ -33,34 +40,40 @@ class Craft
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Groups({"readCraft"})
      */
     protected $id;
     /**
      * @var Item
      * @ORM\ManyToOne(targetEntity="App\Entity\Item", inversedBy="craftsSourceOne")
      * @ORM\JoinColumn(name="item_source_one_id", referencedColumnName="id", nullable=false)
+     * @Groups({"writeCraft"})
      */
     protected $itemSourceOne;
     /**
      * @var Item
      * @ORM\ManyToOne(targetEntity="App\Entity\Item", inversedBy="craftsSourceTwo")
      * @ORM\JoinColumn(name="item_source_two_id", referencedColumnName="id", nullable=false)
+     * @Groups({"writeCraft"})
      */
     protected $itemSourceTwo;
     /**
      * @var string
      * @ORM\Column(type="string", columnDefinition="enum('OR', 'AND')")
+     * @Groups({"readCraft", "writeCraft"})
      */
     protected $operation;
     /**
      * @var Item
      * @ORM\ManyToOne(targetEntity="App\Entity\Item", inversedBy="craftsResult")
      * @ORM\JoinColumn(name="item_result_id", referencedColumnName="id", nullable=false)
+     * @Groups({"readCraft", "writeCraft"})
      */
     protected $itemResult;
     /**
      * @var ArrayCollection<VisibilityCraftItem>
      * @ORM\OneToMany(targetEntity="App\Entity\VisibilityCraftItem", mappedBy="craft")
+     * @Groups({"readCraft"})
      */
     protected $visibilityCraftItems;
 
