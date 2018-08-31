@@ -108,20 +108,45 @@ $(document).ready(function () {
     craft: {
       apiCrafts: './api/crafts',
       resultsCraftingItems: {itemResult: {}, visibilityCraftItems: []},
+      idItemSourceOne: null,
+      idItemSourceTwo: null,
       currentSelectCraftingItem: 0,
       listResultCraftingItem: function () {
         let idItemSourceOne = homestuck.selectInventoryItemSourceOne.val();
         let idItemSourceTwo = homestuck.selectInventoryItemSourceTwo.val();
 
-        homestuck.itemSourceOne.empty().append(homestuck.formatInput.initItemProto(
-          homestuck.inventory.findItemInventory(idItemSourceOne)[0].item,
-          idItemSourceOne
-        )).removeClass('hide');
-        homestuck.itemSourceTwo.empty().append(homestuck.formatInput.initItemProto(
-          homestuck.inventory.findItemInventory(idItemSourceTwo)[0].item,
-          idItemSourceTwo
-        )).removeClass('hide');
+        if (idItemSourceOne) {
+          homestuck.selectInventoryItemSourceTwo.find('option[value="' + idItemSourceOne + '"]').remove();
+          homestuck.itemSourceOne.empty().append(homestuck.formatInput.initItemProto(
+            homestuck.inventory.findItemInventory(idItemSourceOne)[0].item,
+            idItemSourceOne
+          )).removeClass('hide');
+        }
+        if (idItemSourceTwo) {
+          homestuck.selectInventoryItemSourceOne.find('option[value="' + idItemSourceTwo + '"]').remove();
+          homestuck.itemSourceTwo.empty().append(homestuck.formatInput.initItemProto(
+            homestuck.inventory.findItemInventory(idItemSourceTwo)[0].item,
+            idItemSourceTwo
+          )).removeClass('hide');
+        }
 
+        if (homestuck.craft.idItemSourceOne) {
+          homestuck.selectInventoryItemSourceTwo.append(
+            '<option value="' + homestuck.craft.idItemSourceOne + '">' +
+            homestuck.inventory.findItemInventory(homestuck.craft.idItemSourceOne)[0].item.name +
+            '</option>'
+          );
+        }
+        if (homestuck.craft.idItemSourceTwo) {
+          homestuck.selectInventoryItemSourceOne.append(
+            '<option value="' + homestuck.craft.idItemSourceTwo + '">' +
+            homestuck.inventory.findItemInventory(homestuck.craft.idItemSourceTwo)[0].item.name +
+            '</option>'
+          );
+        }
+
+        homestuck.craft.idItemSourceOne = idItemSourceOne;
+        homestuck.craft.idItemSourceTwo = idItemSourceTwo;
         homestuck.craft.currentSelectCraftingItem = 0;
 
         homestuck.resultCrafting.addClass('hide');
@@ -129,28 +154,41 @@ $(document).ready(function () {
         homestuck.hiddenCraftingItem.addClass('hide');
       },
       initCraftingItems: function (isOr) {
-        $.get(this.apiCrafts, {
-          'itemSourceOne.id': homestuck.inventory.findItemInventory(homestuck.selectInventoryItemSourceOne.val())[0].item.id,
-          'itemSourceTwo.id': homestuck.inventory.findItemInventory(homestuck.selectInventoryItemSourceTwo.val())[0].item.id,
-          'operation': isOr ? 'OR' : 'AND'
-        }, 'json').done(function (data) {
-          homestuck.craft.currentSelectCraftingItem = 0;
-          homestuck.craft.resultsCraftingItems = data;
+        let idItemSourceOne = homestuck.selectInventoryItemSourceOne.val();
+        let idItemSourceTwo = homestuck.selectInventoryItemSourceTwo.val();
 
-          homestuck.resultCrafting.removeClass('hide');
+        if (idItemSourceOne && idItemSourceTwo) {
+          $.get(this.apiCrafts, {
+            'itemSourceOne.id': homestuck.inventory.findItemInventory(idItemSourceOne)[0].item.id,
+            'itemSourceTwo.id': homestuck.inventory.findItemInventory(idItemSourceTwo)[0].item.id,
+            'operation': isOr ? 'OR' : 'AND'
+          }, 'json').done(function (data) {
+            homestuck.craft.currentSelectCraftingItem = 0;
+            homestuck.craft.resultsCraftingItems = data;
 
-          if (homestuck.craft.resultsCraftingItems.length !== 0) {
-            homestuck.craft.showCraftingItem(0);
-          }
-        }).fail(function (data) {
-          console.error("error: ajax apiCrafts function showCraftingItem: " + data);
-        })
+            homestuck.resultCrafting.removeClass('hide');
+
+            if (homestuck.craft.resultsCraftingItems.length !== 0) {
+              homestuck.craft.showCraftingItem(0);
+            }
+          }).fail(function (data) {
+            console.error("error: ajax apiCrafts function showCraftingItem: " + data);
+          })
+        }
       },
       craftItem: function() {
-        // homestuck.selectedResultCraftingItem.attr('data-id-craft-item')
-        // remove source item
+        let idCraftItem = homestuck.selectedResultCraftingItem.attr('data-id-craft-item');
+        let idItemSourceOne = homestuck.selectInventoryItemSourceOne.val();
+        let idItemSourceTwo = homestuck.selectInventoryItemSourceTwo.val();
+
         homestuck.inventory.addItemInventory(homestuck.selectedResultCraftingItem.attr('data-id-item'));
-        // desable option & crafting
+        homestuck.inventory.removeItemInventory(idItemSourceOne);
+        homestuck.inventory.removeItemInventory(idItemSourceTwo);
+
+        homestuck.craft.currentSelectCraftingItem = 0;
+        homestuck.resultCrafting.addClass('hide');
+        homestuck.showCraftingItem.addClass('hide');
+        homestuck.hiddenCraftingItem.addClass('hide');
       },
       selectNextCraftingItem: function () {
         homestuck.craft.currentSelectCraftingItem++;
@@ -165,13 +203,6 @@ $(document).ready(function () {
           homestuck.craft.currentSelectCraftingItem = homestuck.craft.resultsCraftingItems.length - 1;
         }
         homestuck.craft.showCraftingItem(homestuck.craft.currentSelectCraftingItem);
-      },
-      addItemInventoryByCraft: function () {
-        this.inventory.addItemInventory(this.currentSelectCraftingItem);
-        this.addVisibilityCraftItem();
-      },
-      addVisibilityCraftItem: function () {
-        // this.craft.currentSelectCraftingItem
       },
       showCraftingItem: function (index) {
         if (homestuck.craft.resultsCraftingItems[index]) {
@@ -191,18 +222,6 @@ $(document).ready(function () {
             )).removeClass('hide');
           }
         }
-      }
-    },
-    item: {
-      Items: {},
-      listItems: function () {
-
-      },
-      formatItem: function (array) {
-
-      },
-      isItem: function (item) {
-
       }
     },
     formatInput: {
@@ -302,16 +321,15 @@ $(document).ready(function () {
   });
 
   $('#crafting-item').click(function () {
-    homestuck.craft.addItemInventoryByCraft();
-    // show modal result new crafting item ?
+    homestuck.craft.craftItem();
   });
 
   $('button.add-craft-item').click(function () {
-    // init hidden input craft item create
+
   });
 
   $('.back-result-crafting-item').click(function () {
-    homestuck.inventory.craftItem();
+    homestuck.inventory.selectBackCraftingItem();
   });
 
   $('.next-result-crafting-item').click(function () {
