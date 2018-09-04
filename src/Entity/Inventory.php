@@ -19,7 +19,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @package App\Entity
  * @ApiResource(attributes={
  *     "normalization_context"={"groups"={"readInventory"}},
- *     "denormalization_context"={"groups"={"writeInventory"}}
+ *     "denormalization_context"={"api_allow_update"=true, "groups"={"writeInventory"}}
  * })
  * @ApiFilter(SearchFilter::class, properties={"user.id": "exact", "user.id": "exact"})
  * @ORM\Entity

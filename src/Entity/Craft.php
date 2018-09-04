@@ -47,14 +47,14 @@ class Craft
      * @var Item
      * @ORM\ManyToOne(targetEntity="App\Entity\Item", inversedBy="craftsSourceOne")
      * @ORM\JoinColumn(name="item_source_one_id", referencedColumnName="id", nullable=false)
-     * @Groups({"writeCraft"})
+     * @Groups({"readCraft", "writeCraft"})
      */
     protected $itemSourceOne;
     /**
      * @var Item
      * @ORM\ManyToOne(targetEntity="App\Entity\Item", inversedBy="craftsSourceTwo")
      * @ORM\JoinColumn(name="item_source_two_id", referencedColumnName="id", nullable=false)
-     * @Groups({"writeCraft"})
+     * @Groups({"readCraft", "writeCraft"})
      */
     protected $itemSourceTwo;
     /**

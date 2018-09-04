@@ -9,6 +9,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Class Taxonomy
@@ -27,6 +28,7 @@ abstract class Taxonomy
     /**
      * @var string
      * @ORM\Column(type="string", length=255, nullable=false)
+     * @Groups({"readInventory", "readCraft"})
      */
     protected $name;
     /**

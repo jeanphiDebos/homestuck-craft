@@ -28,12 +28,12 @@
                                 </a>
                             </li>
                             <li>
-                                <a data-toggle="modal" data-target="#remove-item-inventory">
+                                <a data-toggle="modal" data-target="#player-book">
                                     <span class="glyphicon glyphicon-book" aria-hidden="true"></span> {{ 'player.book'|trans }}
                                 </a>
                             </li>
                             <li>
-                                <a data-toggle="modal" data-target="#remove-item-inventory">
+                                <a data-toggle="modal" data-target="#player-transfer">
                                     <span class="glyphicon glyphicon-transfer" aria-hidden="true"></span> {{ 'player.transfer'|trans }}
                                 </a>
                             </li>
@@ -61,4 +61,6 @@
     </footer>
     {% include 'modal/modal-add-item-inventory.html.twig' %}
     {% include 'modal/modal-remove-item-inventory.html.twig' %}
+    {% include 'modal/modal-player-book.html.twig' %}
+    {% include 'modal/modal-player-transfer.html.twig' %}
 {% endblock %}

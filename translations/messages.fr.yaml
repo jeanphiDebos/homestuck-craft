@@ -84,13 +84,19 @@ modal:
     inventory:
       add-item: ajouter un objet à l'inventaire
       remove-item: supprimer un objet de l'inventaire
+    player:
+      book: livre de recette
+      transfer: transfer d'objet
   body:
     action:
-      add-item:
-      creat-item:
+      add-item: ajouter l'objet
+      creat-item: créer l'objet
     inventory:
       add-item: selectioner l'objet
       remove-item: selectioner l'objet
+    player:
+      transfer-user: selectioner l'utilisateur
+      transfer-item: selectioner l'objet
     add-item:
       name: nom
       description: description

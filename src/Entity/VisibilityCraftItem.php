@@ -16,7 +16,10 @@ use Symfony\Component\Serializer\Annotation\Groups;
 /**
  * Class VisibilityItem
  * @package App\Entity
- * @ApiResource
+ * @ApiResource(attributes={
+ *     "normalization_context"={"groups"={"readVisibilityCraftItem"}},
+ *     "denormalization_context"={"groups"={"writeVisibilityCraftItem"}}
+ * })
  * @ORM\Entity
  * @ORM\Table(name="visibility_craft_item",
  *    uniqueConstraints={
@@ -33,26 +36,27 @@ class VisibilityCraftItem
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Groups({"readCraft"})
+     * @Groups({"readCraft", "readVisibilityCraftItem"})
      */
     protected $id;
     /**
      * @var User
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="visibilityCraftItems")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
-     * @Groups({"readCraft"})
+     * @Groups({"readCraft", "readVisibilityCraftItem", "writeVisibilityCraftItem"})
      */
     protected $user;
     /**
      * @var Craft
      * @ORM\ManyToOne(targetEntity="App\Entity\Craft", inversedBy="visibilityCraftItems")
      * @ORM\JoinColumn(name="craft_id", referencedColumnName="id", nullable=false)
+     * @Groups({"readVisibilityCraftItem", "writeVisibilityCraftItem", "writeVisibilityCraftItem"})
      */
     protected $craft;
     /**
      * @var boolean
      * @ORM\Column(name="isvalid", type="boolean", options={"default":true})
-     * @Groups({"readCraft"})
+     * @Groups({"readCraft", "readVisibilityCraftItem"})
      */
     protected $isValid;
 
