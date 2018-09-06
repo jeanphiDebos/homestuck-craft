@@ -208,11 +208,13 @@ easy_admin:
                     - { property: 'id', label: 'app.admin.user.id' }
                     - { property: 'username', label: 'app.admin.user.name' }
                     - { property: 'lvl', label: 'app.admin.user.lvl' }
+                    - { property: 'resource', label: 'app.admin.user.resource' }
                     - { property: 'enabled', type: 'toggle', label: 'app.admin.user.enabled' }
             form:
                 fields:
                     - { property: 'username', label: 'app.admin.user.name' }
                     - { property: 'lvl', label: 'app.admin.user.lvl' }
+                    - { property: 'resource', label: 'app.admin.user.resource' }
                     - { property: 'email', label: 'app.admin.user.email' }
                     - { property: 'enabled', label: 'app.admin.user.enabled' }
                     - { property: 'roles', type: 'choice', type_options: { multiple: true, choices: { 'ROLE_USER': 'ROLE_USER', 'ROLE_SUPER_ADMIN': 'ROLE_SUPER_ADMIN' } }, label: 'app.admin.user.roles' }
@@ -222,6 +224,7 @@ easy_admin:
                     - { property: 'id', label: 'app.admin.user.id' }
                     - { property: 'username', label: 'app.admin.user.name' }
                     - { property: 'lvl', label: 'app.admin.user.lvl' }
+                    - { property: 'resource', label: 'app.admin.user.resource' }
                     - { property: 'enabled', type: 'toggle', label: 'app.admin.user.enabled' }
             new:
                 title: 'app.admin.new.user'

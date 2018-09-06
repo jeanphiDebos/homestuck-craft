@@ -1,0 +1,21 @@
+<div class="modal fade" id="add-crystals-player" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{ 'modal.title.player.add-crystals'|trans }}</h5>
+      </div>
+      <div class="modal-body">
+        <form class="modal-form-player-add-crystals">
+          <div class="form-group">
+            <label for="input-player-add-crystals">{{ 'modal.body.player.add-crystals'|trans }}</label>
+            <input type="number" step="1" min="1" class="form-control form-control-lg" id="input-player-add-crystals">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">{{ 'modal.close'|trans }}</button>
+        <button type="button" class="btn btn-danger submit" data-dismiss="modal">{{ 'modal.sav'|trans }}</button>
+      </div>
+    </div>
+  </div>
+</div>

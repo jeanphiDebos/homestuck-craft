@@ -14,6 +14,8 @@ $(document).ready(function () {
     selectorPrototypeRowBook: null,
     selectorInventoryPlayer: null,
     selectorCountInventory: null,
+    selectorPlayerResource: null,
+    selectAddCrystalsPlayer: null,
     selectInventoryRemoveItem: null,
     selectInventoryAddItem: null,
     selectTransferInventoryItem: null,
@@ -27,11 +29,13 @@ $(document).ready(function () {
     itemSourceOne: null,
     itemSourceTwo: null,
     itemImageDir: './uploads/images/items/',
-    initApp: function (id, selectorPrototypeItem, selectorPrototypeRowBook, selectorInventoryPlayer, selectorCountInventory, selectInventoryRemoveItem, selectInventoryAddItem, selectTransferInventoryItem, selectTransferToUser, resultCrafting, selectedResultCraftingItem, showCraftingItem, hiddenCraftingItem, selectInventoryItemSourceOne, selectInventoryItemSourceTwo, itemSourceOne, itemSourceTwo) {
+    initApp: function (id, selectorPrototypeItem, selectorPrototypeRowBook, selectorInventoryPlayer, selectorCountInventory, selectorPlayerResource, selectAddCrystalsPlayer, selectInventoryRemoveItem, selectInventoryAddItem, selectTransferInventoryItem, selectTransferToUser, resultCrafting, selectedResultCraftingItem, showCraftingItem, hiddenCraftingItem, selectInventoryItemSourceOne, selectInventoryItemSourceTwo, itemSourceOne, itemSourceTwo) {
       this.selectorPrototypeItem = selectorPrototypeItem;
       this.selectorPrototypeRowBook = selectorPrototypeRowBook;
       this.selectorInventoryPlayer = selectorInventoryPlayer;
       this.selectorCountInventory = selectorCountInventory;
+      this.selectorPlayerResource = selectorPlayerResource;
+      this.selectAddCrystalsPlayer = selectAddCrystalsPlayer;
       this.selectInventoryRemoveItem = selectInventoryRemoveItem;
       this.selectInventoryAddItem = selectInventoryAddItem;
       this.selectTransferInventoryItem = selectTransferInventoryItem;
@@ -55,12 +59,15 @@ $(document).ready(function () {
       apiCapacityGetItem: './api/capacities/',
       id: null,
       lvl: 0,
+      resource: 0,
       capacity: 0,
       listUser: null,
       setUser: function () {
         $.get(this.apiUsersGetItem + homestuck.user.id, 'json').done(function (data) {
           homestuck.user.lvl = data.lvl;
+          homestuck.user.resource = parseInt(data.resource);
           homestuck.user.setCapacity();
+          homestuck.formatInput.playerResource();
         }).fail(function (data) {
           console.error("error: ajax apiUsersGetItem function setUser: " + data);
         });
@@ -80,12 +87,29 @@ $(document).ready(function () {
           console.error("error: ajax apiCapacityGetItem function setCapacity: " + data);
         })
       },
-      transferItemInventory: function (idInventoryItem, isUser) {
+      transferItemInventory: function () {
+        let idInventoryItem = homestuck.selectTransferInventoryItem.val();
+        let isUser = homestuck.selectTransferToUser.val();
         let inventoryItem = homestuck.inventory.findItemInventory(idInventoryItem);
         if (inventoryItem.length > 0) {
           homestuck.inventory.addItemInventory(inventoryItem[0].item.id, isUser);
           homestuck.inventory.removeItemInventory(idInventoryItem);
         }
+      },
+      setCrystalsPlayer: function (resource) {
+        homestuck.user.resource += parseInt(resource);
+        $.ajax({
+          url: this.apiUsersGetItem + homestuck.user.id,
+          type: 'PUT',
+          data: '{"resource": ' + homestuck.user.resource + '}',
+          dataType: 'json',
+          success: function() {
+            homestuck.formatInput.playerResource();
+          },
+          error : function(result){
+            console.error("error: ajax PUT apiUsersGetItem function addCrystalsPlayer: " + result);
+          }
+        });
       }
     },
     inventory: {
@@ -168,7 +192,7 @@ $(document).ready(function () {
     },
     craft: {
       apiCrafts: './api/crafts',
-      resultsCraftingItems: {itemResult: {}, visibilityCraftItems: []},
+      resultsCraftingItems: {itemResult: {cost: 0}, visibilityCraftItems: []},
       idItemSourceOne: null,
       idItemSourceTwo: null,
       currentSelectCraftingItem: 0,
@@ -240,23 +264,27 @@ $(document).ready(function () {
       },
       craftItem: function () {
         let idCraftItem = homestuck.selectedResultCraftingItem.attr('data-id-craft-item');
+        let resourceCraftItem = parseInt(homestuck.selectedResultCraftingItem.attr('data-resource-craft-item'));
         let idItemSourceOne = homestuck.selectInventoryItemSourceOne.val();
         let idItemSourceTwo = homestuck.selectInventoryItemSourceTwo.val();
 
-        homestuck.inventory.addItemInventory(homestuck.selectedResultCraftingItem.attr('data-id-item'), null);
-        homestuck.inventory.removeItemInventory(idItemSourceOne);
-        homestuck.inventory.removeItemInventory(idItemSourceTwo);
+        if (homestuck.user.resource >= resourceCraftItem) {
+          homestuck.inventory.addItemInventory(homestuck.selectedResultCraftingItem.attr('data-id-item'), null);
+          homestuck.inventory.removeItemInventory(idItemSourceOne);
+          homestuck.inventory.removeItemInventory(idItemSourceTwo);
+          homestuck.user.setCrystalsPlayer(-resourceCraftItem);
 
-        if (!homestuck.craft.currentVisibilityCraftingItem) {
-          homestuck.visibilityCraftItem.addVisibilityCraftItem(idCraftItem);
+          if (!homestuck.craft.currentVisibilityCraftingItem) {
+            homestuck.visibilityCraftItem.addVisibilityCraftItem(idCraftItem);
+          }
+
+          homestuck.craft.currentSelectCraftingItem = 0;
+          homestuck.craft.idItemSourceOne = null;
+          homestuck.craft.idItemSourceTwo = null;
+          homestuck.resultCrafting.addClass('hide');
+          homestuck.showCraftingItem.addClass('hide');
+          homestuck.hiddenCraftingItem.addClass('hide');
         }
-
-        homestuck.craft.currentSelectCraftingItem = 0;
-        homestuck.craft.idItemSourceOne = null;
-        homestuck.craft.idItemSourceTwo = null;
-        homestuck.resultCrafting.addClass('hide');
-        homestuck.showCraftingItem.addClass('hide');
-        homestuck.hiddenCraftingItem.addClass('hide');
       },
       selectNextCraftingItem: function () {
         homestuck.craft.currentSelectCraftingItem++;
@@ -276,6 +304,7 @@ $(document).ready(function () {
         if (homestuck.craft.resultsCraftingItems[index]) {
           homestuck.selectedResultCraftingItem
             .attr('data-id-craft-item', homestuck.craft.resultsCraftingItems[index].id)
+            .attr('data-resource-craft-item', homestuck.craft.resultsCraftingItems[index].itemResult.cost)
             .attr('data-id-item', homestuck.craft.resultsCraftingItems[index].itemResult.id);
           if (homestuck.craft.resultsCraftingItems[index].visibilityCraftItems.filter(function (visibilityCraftItem) {
             return parseInt(visibilityCraftItem.user.id) === parseInt(homestuck.user.id)
@@ -356,7 +385,7 @@ $(document).ready(function () {
           listTypeItem[typeItem.categoryItem.name].push(typeItem.name);
         });
 
-        let description = item.description;
+        let description = item.description + '<br />Coût: ' + item.cost;
         if (listTypeItem.length > 0) {
           description += '<br />';
           for (let categoryItemName in listTypeItem) {
@@ -397,6 +426,9 @@ $(document).ready(function () {
       },
       counter: function () {
         homestuck.selectorCountInventory.empty().append(homestuck.inventory.inventoryItems.length + '/' + homestuck.user.capacity);
+      },
+      playerResource: function () {
+        homestuck.selectorPlayerResource.empty().append(homestuck.user.resource);
       }
     }
   };
@@ -408,7 +440,9 @@ $(document).ready(function () {
     $('#prototype-inventory-player-item'),
     $('#prototype-row-book'),
     $('.inventory-player-items'),
-    $('#count-inventory-player-items'),
+    $('.count-inventory-player-items'),
+    $('.player-resource'),
+    $('#input-player-add-crystals'),
     $('select#select-inventory-remove-item'),
     $('select#select-inventory-add-item'),
     $('select#select-transfer-inventory-item'),
@@ -422,6 +456,8 @@ $(document).ready(function () {
     $('#selected-inventory-item-source-one'),
     $('#selected-inventory-item-source-two')
   );
+
+  //@todo ajout d'un bouton sur les carte pour créer l'objet (consomme seulement les cristaux)
 
   $(document).on('change', 'select.select-listing-inventory-item', function () {
     homestuck.craft.listResultCraftingItem();
@@ -445,6 +481,12 @@ $(document).ready(function () {
     homestuck.inventory.addItemInventory(homestuck.selectInventoryAddItem.val(), null);
   });
 
+  $('#add-crystals-player').on('shown.bs.modal', function () {
+    homestuck.selectAddCrystalsPlayer.val(1);
+  }).find('.submit').click(function () {
+    homestuck.user.setCrystalsPlayer(homestuck.selectAddCrystalsPlayer.val());
+  });
+
   $('#player-book').on('shown.bs.modal', function () {
     homestuck.craft.initBook($(this).find('.modal-body'));
   }).on('hidden.bs.modal', function () {
@@ -458,10 +500,7 @@ $(document).ready(function () {
     homestuck.formatInput.resetSelect(homestuck.selectTransferInventoryItem);
     homestuck.formatInput.resetSelect(homestuck.selectTransferToUser);
   }).find('.submit').click(function () {
-    homestuck.user.transferItemInventory(
-      homestuck.selectTransferInventoryItem.val(),
-      homestuck.selectTransferToUser.val()
-    );
+    homestuck.user.transferItemInventory();
   });
 
   $('#modal-action-add-item-inventory').click(function () {

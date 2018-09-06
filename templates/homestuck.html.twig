@@ -14,9 +14,18 @@
                             <span class="icon-bar"></span>
                         </button>
                         <a class="navbar-brand" href="#">{{ 'homestuck'|trans }} : {{ app.user.username }}</a>
+                        <div class="text-warning text-center">
+                            <span class="player-resource">0</span>
+                            <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+                        </div>
                     </div>
                     <div id="navbar" class="navbar-collapse collapse">
                         <ul class="nav navbar-nav">
+                            <li>
+                                <a data-toggle="modal" data-target="#add-crystals-player">
+                                    {{ 'player.add-crystals'|trans }}
+                                </a>
+                            </li>
                             <li>
                                 <a data-toggle="modal" data-target="#add-item-inventory">
                                     {{ 'inventory.add-item'|trans }}
@@ -49,7 +58,7 @@
     <footer class="footer inventory-player">
         <div class="inventory-player-items">
             <div class="inventory-player-action text-center">
-                <div id="count-inventory-player-items"> x/x</div>
+                <div class="count-inventory-player-items"> x/x</div>
                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#add-item-inventory">
                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                 </button>
@@ -59,6 +68,7 @@
             </div>
         </div>
     </footer>
+    {% include 'modal/modal-add-crystals-player.html.twig' %}
     {% include 'modal/modal-add-item-inventory.html.twig' %}
     {% include 'modal/modal-remove-item-inventory.html.twig' %}
     {% include 'modal/modal-player-book.html.twig' %}

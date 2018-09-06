@@ -43,6 +43,7 @@ app:
       id: id
       name: nom
       lvl: niveau
+      resource: ressource
       enabled: enabled
       email: email
       plainPassword: mot de passe
@@ -69,6 +70,7 @@ homestuck: homestuck
 player:
   book: livre de recette
   transfer: tranferer un objet
+  add-crystals: s'ajouter des cristaux
 inventory:
   add-item: ajouter un objet à l'inventaire
   remove-item: supprimer un objet de l'inventaire
@@ -87,6 +89,7 @@ modal:
     player:
       book: livre de recette
       transfer: transfer d'objet
+      add-crystals: s'ajouter des cristaux
   body:
     action:
       add-item: ajouter l'objet
@@ -97,6 +100,7 @@ modal:
     player:
       transfer-user: selectioner l'utilisateur
       transfer-item: selectioner l'objet
+      add-crystals: nombre de cristaux
     add-item:
       name: nom
       description: description
