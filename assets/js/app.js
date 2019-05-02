@@ -24,12 +24,14 @@ $(document).ready(function () {
     selectedResultCraftingItem: null,
     showCraftingItem: null,
     hiddenCraftingItem: null,
+    havNotResultCrafting: null,
+    havNotCrystal: null,
     selectInventoryItemSourceOne: null,
     selectInventoryItemSourceTwo: null,
     itemSourceOne: null,
     itemSourceTwo: null,
     itemImageDir: './uploads/images/items/',
-    initApp: function (id, selectorPrototypeItem, selectorPrototypeRowBook, selectorInventoryPlayer, selectorCountInventory, selectorPlayerResource, selectAddCrystalsPlayer, selectInventoryRemoveItem, selectInventoryAddItem, selectTransferInventoryItem, selectTransferToUser, resultCrafting, selectedResultCraftingItem, showCraftingItem, hiddenCraftingItem, selectInventoryItemSourceOne, selectInventoryItemSourceTwo, itemSourceOne, itemSourceTwo) {
+    initApp: function (id, selectorPrototypeItem, selectorPrototypeRowBook, selectorInventoryPlayer, selectorCountInventory, selectorPlayerResource, selectAddCrystalsPlayer, selectInventoryRemoveItem, selectInventoryAddItem, selectTransferInventoryItem, selectTransferToUser, resultCrafting, selectedResultCraftingItem, showCraftingItem, hiddenCraftingItem, havNotResultCrafting, havNotCrystal, selectInventoryItemSourceOne, selectInventoryItemSourceTwo, itemSourceOne, itemSourceTwo) {
       this.selectorPrototypeItem = selectorPrototypeItem;
       this.selectorPrototypeRowBook = selectorPrototypeRowBook;
       this.selectorInventoryPlayer = selectorInventoryPlayer;
@@ -44,6 +46,8 @@ $(document).ready(function () {
       this.selectedResultCraftingItem = selectedResultCraftingItem;
       this.showCraftingItem = showCraftingItem;
       this.hiddenCraftingItem = hiddenCraftingItem;
+      this.havNotResultCrafting = havNotResultCrafting;
+      this.havNotCrystal = havNotCrystal;
       this.selectInventoryItemSourceOne = selectInventoryItemSourceOne;
       this.selectInventoryItemSourceTwo = selectInventoryItemSourceTwo;
       this.itemSourceOne = itemSourceOne;
@@ -129,19 +133,24 @@ $(document).ready(function () {
         })
       },
       addItemInventory: function (idItem, isUser) {
+        let transfer = true;
+
         if (isUser === null) {
           isUser = homestuck.user.id;
+          transfer = false;
         }
 
         $.post(
           this.apiInventories,
           "{\"user\": \"/api/users/" + isUser + "\", \"item\": \"/api/items/" + idItem + "\"}", 'json'
         ).done(function (data) {
-          homestuck.inventory.inventoryItems.push(data);
-          homestuck.inventory.addItemInInventory(data.item, data.id);
-          homestuck.selectInventoryItemSourceOne.append('<option value="' + data.id + '">' + data.item.name + '</option>');
-          homestuck.selectInventoryItemSourceTwo.append('<option value="' + data.id + '">' + data.item.name + '</option>');
-          homestuck.formatInput.counter();
+          if (transfer === false){
+            homestuck.inventory.inventoryItems.push(data);
+            homestuck.inventory.addItemInInventory(data.item, data.id);
+            homestuck.selectInventoryItemSourceOne.append('<option value="' + data.id + '">' + data.item.name + '</option>');
+            homestuck.selectInventoryItemSourceTwo.append('<option value="' + data.id + '">' + data.item.name + '</option>');
+            homestuck.formatInput.counter();
+          }
         }).fail(function (data) {
           console.error("error: ajax apiInventories function addItemInventory: " + data);
         });
@@ -151,13 +160,21 @@ $(document).ready(function () {
           url: this.apiInventories + '/' + idInventoryItem,
           type: 'DELETE',
           success: function () {
+            let idItemSourceOne = homestuck.selectInventoryItemSourceOne.val();
+            let idItemSourceTwo = homestuck.selectInventoryItemSourceTwo.val();
+
             homestuck.inventory.inventoryItems.splice(
-              homestuck.inventory.findItemInventory(idInventoryItem),
+              homestuck.inventory.findIndexItemInventory(idInventoryItem),
               1
             );
             $('.inventory-player-item[id-inventory-item="' + idInventoryItem + '"]').remove();
             homestuck.selectInventoryItemSourceOne.find('option[value="' + idInventoryItem + '"]').remove();
             homestuck.selectInventoryItemSourceTwo.find('option[value="' + idInventoryItem + '"]').remove();
+
+            if (idItemSourceOne ===  idInventoryItem || idItemSourceTwo ===  idInventoryItem) {
+              homestuck.craft.listResultCraftingItem();
+            }
+
             homestuck.formatInput.counter();
           },
           error: function (request, msg, error) {
@@ -170,6 +187,11 @@ $(document).ready(function () {
       },
       findItemInventory: function (idInventoryItem) {
         return homestuck.inventory.inventoryItems.filter(function (inventoryItem) {
+          return parseInt(inventoryItem.id) === parseInt(idInventoryItem)
+        });
+      },
+      findIndexItemInventory: function (idInventoryItem) {
+        return homestuck.inventory.inventoryItems.findIndex(function (inventoryItem) {
           return parseInt(inventoryItem.id) === parseInt(idInventoryItem)
         });
       }
@@ -202,6 +224,10 @@ $(document).ready(function () {
         let idItemSourceTwo = homestuck.selectInventoryItemSourceTwo.val();
 
         homestuck.resultCrafting.addClass('hide');
+        homestuck.showCraftingItem.addClass('hide');
+        homestuck.hiddenCraftingItem.addClass('hide');
+        homestuck.havNotResultCrafting.addClass('hide');
+        homestuck.havNotCrystal.addClass('hide');
         homestuck.showCraftingItem.empty();
 
         if (idItemSourceOne) {
@@ -238,10 +264,6 @@ $(document).ready(function () {
         homestuck.craft.idItemSourceOne = idItemSourceOne;
         homestuck.craft.idItemSourceTwo = idItemSourceTwo;
         homestuck.craft.currentSelectCraftingItem = 0;
-
-        homestuck.resultCrafting.addClass('hide');
-        homestuck.showCraftingItem.addClass('hide');
-        homestuck.hiddenCraftingItem.addClass('hide');
       },
       initCraftingItems: function (isOr) {
         let idItemSourceOne = homestuck.selectInventoryItemSourceOne.val();
@@ -249,6 +271,10 @@ $(document).ready(function () {
 
         homestuck.craft.currentSelectCraftingItem = 0;
         homestuck.resultCrafting.addClass('hide');
+        homestuck.showCraftingItem.addClass('hide');
+        homestuck.hiddenCraftingItem.addClass('hide');
+        homestuck.havNotResultCrafting.addClass('hide');
+        homestuck.havNotCrystal.addClass('hide');
         homestuck.showCraftingItem.empty();
 
         if (idItemSourceOne && idItemSourceTwo) {
@@ -259,10 +285,11 @@ $(document).ready(function () {
           }, 'json').done(function (data) {
             homestuck.craft.resultsCraftingItems = data;
 
-            homestuck.resultCrafting.removeClass('hide');
-
             if (homestuck.craft.resultsCraftingItems.length !== 0) {
+              homestuck.resultCrafting.removeClass('hide');
               homestuck.craft.showCraftingItem(0);
+            }else{
+              homestuck.havNotResultCrafting.removeClass('hide');
             }
           }).fail(function (data) {
             console.error("error: ajax apiCrafts function showCraftingItem: " + data);
@@ -291,6 +318,10 @@ $(document).ready(function () {
           homestuck.resultCrafting.addClass('hide');
           homestuck.showCraftingItem.addClass('hide');
           homestuck.hiddenCraftingItem.addClass('hide');
+          homestuck.havNotResultCrafting.addClass('hide');
+          homestuck.havNotCrystal.addClass('hide');
+        }else{
+          homestuck.havNotCrystal.removeClass('hide');
         }
       },
       selectNextCraftingItem: function () {
@@ -309,6 +340,7 @@ $(document).ready(function () {
       },
       showCraftingItem: function (index) {
         if (homestuck.craft.resultsCraftingItems[index]) {
+          homestuck.havNotCrystal.addClass('hide');
           homestuck.selectedResultCraftingItem
             .attr('data-id-craft-item', homestuck.craft.resultsCraftingItems[index].id)
             .attr('data-resource-craft-item', homestuck.craft.resultsCraftingItems[index].itemResult.cost)
@@ -458,6 +490,8 @@ $(document).ready(function () {
     $('#selected-result-crafting-item'),
     $('#show-crafting-item'),
     $('#hidden-crafting-item'),
+    $('#hav-not-result-crafting'),
+    $('#hav-not-crystal'),
     $('#source-one select.select-listing-inventory-item'),
     $('#source-two select.select-listing-inventory-item'),
     $('#selected-inventory-item-source-one'),
@@ -532,7 +566,7 @@ $(document).ready(function () {
   });
 
   $('.back-result-crafting-item').click(function () {
-    homestuck.inventory.selectBackCraftingItem();
+    homestuck.craft.selectBackCraftingItem();
   });
 
   $('.next-result-crafting-item').click(function () {
