@@ -201,34 +201,38 @@ $(document).ready(function () {
         let idItemSourceOne = homestuck.selectInventoryItemSourceOne.val();
         let idItemSourceTwo = homestuck.selectInventoryItemSourceTwo.val();
 
+        homestuck.resultCrafting.addClass('hide');
+        homestuck.showCraftingItem.empty();
+
         if (idItemSourceOne) {
-          homestuck.selectInventoryItemSourceTwo.find('option[value="' + idItemSourceOne + '"]').remove();
+          homestuck.selectInventoryItemSourceTwo.find('option[value="' + idItemSourceOne + '"]').prop('disabled', true);
           homestuck.itemSourceOne.empty().append(homestuck.item.initItemProto(
             homestuck.inventory.findItemInventory(idItemSourceOne)[0].item,
             idItemSourceOne
           )).removeClass('hide');
+        }else{
+          homestuck.itemSourceOne.empty().addClass('hide');
         }
+
         if (idItemSourceTwo) {
-          homestuck.selectInventoryItemSourceOne.find('option[value="' + idItemSourceTwo + '"]').remove();
+          homestuck.selectInventoryItemSourceOne.find('option[value="' + idItemSourceTwo + '"]').prop('disabled', true);
           homestuck.itemSourceTwo.empty().append(homestuck.item.initItemProto(
             homestuck.inventory.findItemInventory(idItemSourceTwo)[0].item,
             idItemSourceTwo
           )).removeClass('hide');
+        }else{
+          homestuck.itemSourceTwo.empty().addClass('hide');
         }
 
-        if (homestuck.craft.idItemSourceOne) {
-          homestuck.selectInventoryItemSourceTwo.append(
-            '<option value="' + homestuck.craft.idItemSourceOne + '">' +
-            homestuck.inventory.findItemInventory(homestuck.craft.idItemSourceOne)[0].item.name +
-            '</option>'
-          );
+        if (homestuck.craft.idItemSourceOne && homestuck.craft.idItemSourceOne !== idItemSourceOne) {
+          homestuck.selectInventoryItemSourceTwo
+              .find('option[value="' + homestuck.craft.idItemSourceOne + '"]')
+              .prop('disabled', false);
         }
-        if (homestuck.craft.idItemSourceTwo) {
-          homestuck.selectInventoryItemSourceOne.append(
-            '<option value="' + homestuck.craft.idItemSourceTwo + '">' +
-            homestuck.inventory.findItemInventory(homestuck.craft.idItemSourceTwo)[0].item.name +
-            '</option>'
-          );
+        if (homestuck.craft.idItemSourceTwo && homestuck.craft.idItemSourceTwo !== idItemSourceTwo) {
+          homestuck.selectInventoryItemSourceOne
+              .find('option[value="' + homestuck.craft.idItemSourceTwo + '"]')
+              .prop('disabled', false);
         }
 
         homestuck.craft.idItemSourceOne = idItemSourceOne;
@@ -243,13 +247,16 @@ $(document).ready(function () {
         let idItemSourceOne = homestuck.selectInventoryItemSourceOne.val();
         let idItemSourceTwo = homestuck.selectInventoryItemSourceTwo.val();
 
+        homestuck.craft.currentSelectCraftingItem = 0;
+        homestuck.resultCrafting.addClass('hide');
+        homestuck.showCraftingItem.empty();
+
         if (idItemSourceOne && idItemSourceTwo) {
           $.get(this.apiCrafts, {
             'itemSourceOne.id': homestuck.inventory.findItemInventory(idItemSourceOne)[0].item.id,
             'itemSourceTwo.id': homestuck.inventory.findItemInventory(idItemSourceTwo)[0].item.id,
             'operation': isOr ? 'OR' : 'AND'
           }, 'json').done(function (data) {
-            homestuck.craft.currentSelectCraftingItem = 0;
             homestuck.craft.resultsCraftingItems = data;
 
             homestuck.resultCrafting.removeClass('hide');
