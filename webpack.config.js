@@ -2,7 +2,9 @@ var Encore = require('@symfony/webpack-encore');
 
 Encore
     .setOutputPath('public/build/')
-    .setPublicPath('/test/homestuck-craft/public/build')
+    .setPublicPath('/build')
+    // for dev
+    // .setPublicPath('/test/homestuck-craft/public/build')
     .setManifestKeyPrefix('build')
     .cleanupOutputBeforeBuild()
     .addEntry('js/app', './assets/js/app.js')

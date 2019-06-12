@@ -95,8 +95,8 @@ $(document).ready(function () {
         let idInventoryItem = homestuck.selectTransferInventoryItem.val();
         let isUser = homestuck.selectTransferToUser.val();
         let inventoryItem = homestuck.inventory.findItemInventory(idInventoryItem);
-        if (inventoryItem.length > 0) {
-          homestuck.inventory.addItemInventory(inventoryItem[0].item.id, isUser);
+        if (inventoryItem) {
+          homestuck.inventory.addItemInventory(inventoryItem.item.id, isUser);
           homestuck.inventory.removeItemInventory(idInventoryItem);
         }
       },
@@ -162,6 +162,7 @@ $(document).ready(function () {
           success: function () {
             let idItemSourceOne = homestuck.selectInventoryItemSourceOne.val();
             let idItemSourceTwo = homestuck.selectInventoryItemSourceTwo.val();
+            let itemInventory = homestuck.inventory.findItemInventory(idInventoryItem);
 
             homestuck.inventory.inventoryItems.splice(
               homestuck.inventory.findIndexItemInventory(idInventoryItem),
@@ -175,6 +176,7 @@ $(document).ready(function () {
               homestuck.craft.listResultCraftingItem();
             }
 
+            homestuck.user.setCrystalsPlayer(itemInventory.item.cost);
             homestuck.formatInput.counter();
           },
           error: function (request, msg, error) {
@@ -186,9 +188,15 @@ $(document).ready(function () {
         homestuck.selectorInventoryPlayer.append(homestuck.item.initItemProto(item, idInventory));
       },
       findItemInventory: function (idInventoryItem) {
-        return homestuck.inventory.inventoryItems.filter(function (inventoryItem) {
+        let itemFind = homestuck.inventory.inventoryItems.filter(function (inventoryItem) {
           return parseInt(inventoryItem.id) === parseInt(idInventoryItem)
         });
+        
+        if (itemFind.length !== 0) {
+          return itemFind[0];
+        }
+
+        return null;
       },
       findIndexItemInventory: function (idInventoryItem) {
         return homestuck.inventory.inventoryItems.findIndex(function (inventoryItem) {
@@ -233,7 +241,7 @@ $(document).ready(function () {
         if (idItemSourceOne) {
           homestuck.selectInventoryItemSourceTwo.find('option[value="' + idItemSourceOne + '"]').prop('disabled', true);
           homestuck.itemSourceOne.empty().append(homestuck.item.initItemProto(
-            homestuck.inventory.findItemInventory(idItemSourceOne)[0].item,
+            homestuck.inventory.findItemInventory(idItemSourceOne).item,
             idItemSourceOne
           )).removeClass('hide');
         }else{
@@ -243,7 +251,7 @@ $(document).ready(function () {
         if (idItemSourceTwo) {
           homestuck.selectInventoryItemSourceOne.find('option[value="' + idItemSourceTwo + '"]').prop('disabled', true);
           homestuck.itemSourceTwo.empty().append(homestuck.item.initItemProto(
-            homestuck.inventory.findItemInventory(idItemSourceTwo)[0].item,
+            homestuck.inventory.findItemInventory(idItemSourceTwo).item,
             idItemSourceTwo
           )).removeClass('hide');
         }else{
@@ -279,8 +287,8 @@ $(document).ready(function () {
 
         if (idItemSourceOne && idItemSourceTwo) {
           $.get(this.apiCrafts, {
-            'itemSourceOne.id': homestuck.inventory.findItemInventory(idItemSourceOne)[0].item.id,
-            'itemSourceTwo.id': homestuck.inventory.findItemInventory(idItemSourceTwo)[0].item.id,
+            'itemSourceOne.id': homestuck.inventory.findItemInventory(idItemSourceOne).item.id,
+            'itemSourceTwo.id': homestuck.inventory.findItemInventory(idItemSourceTwo).item.id,
             'operation': isOr ? 'OR' : 'AND'
           }, 'json').done(function (data) {
             homestuck.craft.resultsCraftingItems = data;
