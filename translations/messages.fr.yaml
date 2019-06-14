@@ -1,0 +1,111 @@
+app:
+  admin:
+    menu:
+      item: objet
+      craft: fabrication
+      user: utilisateur
+      inventory: inventaire
+      type-item: type d'objet
+      category-item: categorie d'objet
+      visibility-craft-item: visibiliter de l'objet
+      capacity: capacité
+    list:
+      item: liste des objets
+      craft: liste des fabrications
+      inventory: liste des inventaires
+      user: liste des utilisateurs
+      category-item: liste des categories d'objets
+      type-item: liste des type d'objets
+      capacity: liste des capacités
+      visibility-craft-item: liste des objets visible
+    new:
+      item: nouveau objet
+      craft: nouvelle fabrication
+      inventory: nouveau inventaire
+      user: nouveau utilisateur
+      category-item: nouvelle categorie d'objet
+      type-item: nouveau type d'objet
+      capacity: nouvelle capacité
+      visibility-craft-item: nouveau objet visible
+    item:
+      id: id
+      description: description
+      name: nom
+      is_valid: est valide
+      is_visible: est visible
+      image: image
+      type-item: type d'objet
+    craft:
+      item-source-one: objet source un
+      item-source-two: objet source deux
+      item-result: resultat objet
+    user:
+      id: id
+      name: nom
+      lvl: niveau
+      resource: ressource
+      enabled: enabled
+      email: email
+      plainPassword: mot de passe
+      roles: roles
+    inventory:
+      user: utilisateur
+      item: objet
+    type-item:
+      id: id
+      name: name
+      category-item: categorie d'objet
+    category-item:
+      id: id
+      name: nom
+    visibility-craft-item:
+      user: utilisateur
+      craft: recette
+      is_valid: est valide
+    capacity:
+      lvl: niveau
+      capacity: capacité
+      max-type-item-craft: max de type d'objet fabricable
+homestuck: homestuck
+player:
+  book: livre de recette
+  transfer: tranferer un objet
+  add-crystals: s'ajouter des cristaux
+inventory:
+  add-item: ajouter un objet à l'inventaire
+  remove-item: supprimer un objet de l'inventaire
+block:
+  result-crafting:
+    add-craft-item: créer un nouveau craft
+    craft-item: créer l'objet
+  select-item:
+    source-one: source un
+    source-two: source deux
+modal:
+  title:
+    inventory:
+      add-item: ajouter un objet à l'inventaire
+      remove-item: supprimer un objet de l'inventaire
+    player:
+      book: livre de recette
+      transfer: transfer d'objet
+      add-crystals: s'ajouter des cristaux
+  body:
+    action:
+      add-item: ajouter l'objet
+      creat-item: créer l'objet
+    inventory:
+      add-item: selectioner l'objet
+      remove-item: selectioner l'objet
+    player:
+      transfer-user: selectioner l'utilisateur
+      transfer-item: selectioner l'objet
+      add-crystals: nombre de cristaux
+    add-item:
+      name: nom
+      description: description
+      category: categorie
+      type: type
+      add-type: ajouter ce type
+  close: fermer
+  sav: sauvegarder

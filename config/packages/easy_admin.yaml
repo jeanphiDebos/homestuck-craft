@@ -1,0 +1,238 @@
+# EasyAdminBundle Configuration
+easy_admin:
+    list:
+        actions:
+            - { name: 'show' }
+            - { name: 'new', icon: 'plus', label: 'app.admin.new' }
+        max_results: 20
+    design:
+        menu:
+            - { label: 'app.admin.menu.item', entity: 'Item', default: true}
+            - { label: 'app.admin.menu.craft', entity: 'Craft'}
+            - { label: 'app.admin.menu.user', entity: 'User'}
+            - { label: 'app.admin.menu.inventory', entity: 'Inventory'}
+            - { label: 'app.admin.menu.type-item', entity: 'TypeItem'}
+            - { label: 'app.admin.menu.category-item', entity: 'CategoryItem'}
+            - { label: 'app.admin.menu.visibility-craft-item', entity: 'VisibilityCraftItem'}
+            - { label: 'app.admin.menu.capacity', entity: 'Capacity'}
+        brand_color: '#77B5FE'
+        form_theme: ['horizontal', 'VichUploaderBundle:Form:fields.html.twig']
+    site_name: 'HomeStuck'
+    entities:
+        Item:
+            class: App\Entity\Item
+            image_base_path: '%vich.path.item_images%'
+            label: 'app.admin.item'
+            list:
+                title: 'app.admin.list.item'
+                fields:
+                    - { property: 'id', label: 'app.admin.item.id' }
+                    - { property: 'name', label: 'app.admin.item.name' }
+                    - { property: 'description', label: 'app.admin.item.description' }
+                    - { property: 'cost', label: 'app.admin.item.cost' }
+                    - { property: 'image', label: 'app.admin.item.image', type: 'image' }
+                    - { property: 'typeItems', label: 'app.admin.item.type-item' }
+                    - { property: 'isVisible', type: 'toggle', label: 'app.admin.item.is_visible' }
+                    - { property: 'isValid', type: 'toggle', label: 'app.admin.item.is_valid' }
+            form:
+                fields:
+                    - { property: 'name', label: 'app.admin.item.name' }
+#                    - { property: 'description', type: 'ckeditor', label: 'app.admin.item.description' }
+                    - { property: 'description', label: 'app.admin.item.description' }
+                    - { property: 'cost', label: 'app.admin.item.cost' }
+                    - { property: 'imageFile', type: 'vich_image', label: 'app.admin.item.image', type_options: { required: true, allow_delete: false }}
+                    - { property: 'typeItems', label: 'app.admin.item.type-item' }
+                    - { property: 'isVisible', label: 'app.admin.item.is_visible' }
+                    - { property: 'isValid', label: 'app.admin.item.is_valid' }
+            show:
+                title: 'app.admin.show.domain'
+                fields:
+                    - { property: 'id', label: 'app.admin.item.id' }
+                    - { property: 'name', label: 'app.admin.item.name' }
+                    - { property: 'description', label: 'app.admin.item.description' }
+                    - { property: 'cost', label: 'app.admin.item.cost' }
+                    - { property: 'image', label: 'app.admin.item.image', type: 'image' }
+                    - { property: 'typeItems', label: 'app.admin.item.type-item' }
+                    - { property: 'isVisible', type: 'toggle', label: 'app.admin.item.is_visible' }
+                    - { property: 'isValid', type: 'toggle', label: 'app.admin.item.is_valid' }
+            new:
+                title: 'app.admin.new.item'
+            edit:
+                title: 'app.admin.edit.item'
+        TypeItem:
+            class: App\Entity\TypeItem
+            label: 'app.admin.type-item'
+            list:
+                title: 'app.admin.list.type-item'
+                fields:
+                    - { property: 'id', label: 'app.admin.type-item.id' }
+                    - { property: 'name', label: 'app.admin.type-item.name' }
+                    - { property: 'categoryItem', label: 'app.admin.type-item.category-item'}
+            form:
+                fields:
+                    - { property: 'name', label: 'app.admin.type-item.name' }
+                    - { property: 'categoryItem', label: 'app.admin.type-item.category-item', type_options: { required: true } }
+            show:
+                title: 'app.admin.show.type-item'
+                fields:
+                    - { property: 'id', label: 'app.admin.type-item.id' }
+                    - { property: 'name', label: 'app.admin.type-item.name' }
+                    - { property: 'categoryItem', label: 'app.admin.type-item.category-item'}
+            new:
+                title: 'app.admin.new.type-item'
+            edit:
+                title: 'app.admin.edit.type-item'
+        CategoryItem:
+            class: App\Entity\CategoryItem
+            label: 'app.admin.category-item'
+            list:
+                title: 'app.admin.list.category-item'
+                fields:
+                    - { property: 'id', label: 'app.admin.category-item.id' }
+                    - { property: 'name', label: 'app.admin.category-item.name' }
+            form:
+                fields:
+                    - { property: 'name', label: 'app.admin.category-item.name' }
+            show:
+                title: 'app.admin.show.category-item'
+                fields:
+                    - { property: 'id', label: 'app.admin.category-item.id' }
+                    - { property: 'name', label: 'app.admin.category-item.name' }
+            new:
+                title: 'app.admin.new.category-item'
+            edit:
+                title: 'app.admin.edit.category-item'
+        Craft:
+            class: App\Entity\Craft
+            label: 'app.admin.craft'
+            list:
+                title: 'app.admin.list.craft'
+                fields:
+                    - { property: 'itemSourceOne', label: 'app.admin.craft.item-source-one' }
+                    - { property: 'itemSourceTwo', label: 'app.admin.craft.item-source-two' }
+                    - { property: 'operation', label: 'app.admin.craft.operation' }
+                    - { property: 'itemResult', label: 'app.admin.craft.item-result' }
+            form:
+                fields:
+                    - { property: 'itemSourceOne', label: 'app.admin.craft.item-source-one' }
+                    - { property: 'itemSourceTwo', label: 'app.admin.craft.item-source-two' }
+                    - { property: 'operation', label: 'app.admin.craft.operation' }
+                    - { property: 'operation', type: 'choice', type_options: { choices: {'Ou':'OR', 'Et':'AND' } }  }
+                    - { property: 'itemResult', label: 'app.admin.craft.item-result' }
+            show:
+                title: 'app.admin.show.craft'
+                fields:
+                    - { property: 'itemSourceOne', label: 'app.admin.craft.item-source-one' }
+                    - { property: 'itemSourceTwo', label: 'app.admin.craft.item-source-two' }
+                    - { property: 'operation', label: 'app.admin.craft.operation' }
+                    - { property: 'itemResult', label: 'app.admin.craft.item-result' }
+            new:
+                title: 'app.admin.new.craft'
+            edit:
+                title: 'app.admin.edit.craft'
+        Inventory:
+            class: App\Entity\Inventory
+            label: 'app.admin.inventory'
+            list:
+                title: 'app.admin.list.inventory'
+                fields:
+                    - { property: 'user', label: 'app.admin.inventory.user' }
+                    - { property: 'item', label: 'app.admin.inventory.item' }
+            form:
+                fields:
+                    - { property: 'user', label: 'app.admin.inventory.user' }
+                    - { property: 'item', label: 'app.admin.inventory.item' }
+            show:
+                title: 'app.admin.show.inventory'
+                fields:
+                    - { property: 'user', label: 'app.admin.inventory.user' }
+                    - { property: 'item', label: 'app.admin.inventory.item' }
+            new:
+                title: 'app.admin.new.inventory'
+            edit:
+                title: 'app.admin.edit.inventory'
+        VisibilityCraftItem:
+            class: App\Entity\VisibilityCraftItem
+            label: 'app.admin.visibility-craft-item'
+            list:
+                title: 'app.admin.list.visibility-craft-item'
+                fields:
+                    - { property: 'user', label: 'app.admin.visibility-craft-item.user' }
+                    - { property: 'craft', label: 'app.admin.visibility-craft-item.craft' }
+                    - { property: 'isValid', type: 'toggle', label: 'app.admin.visibility-craft-item.is_valid' }
+            form:
+                fields:
+                    - { property: 'user', label: 'app.admin.visibility-craft-item.user' }
+                    - { property: 'craft', label: 'app.admin.visibility-craft-item.craft' }
+                    - { property: 'isValid', label: 'app.admin.visibility-craft-item.is_valid' }
+            show:
+                title: 'app.admin.show.visibility-craft-item'
+                fields:
+                    - { property: 'user', label: 'app.admin.visibility-craft-item.user' }
+                    - { property: 'craft', label: 'app.admin.visibility-craft-item.craft' }
+                    - { property: 'isValid', type: 'toggle', label: 'app.admin.visibility-craft-item.is_valid' }
+            new:
+                title: 'app.admin.new.visibility-craft-item'
+            edit:
+                title: 'app.admin.edit.visibility-craft-item'
+        Capacity:
+            class: App\Entity\Capacity
+            label: 'app.admin.capacity'
+            list:
+                title: 'app.admin.list.capacity'
+                fields:
+                    - { property: 'lvl', label: 'app.admin.capacity.lvl' }
+                    - { property: 'capacity', label: 'app.admin.capacity.capacity' }
+                    - { property: 'maxTypeItemCraft', label: 'app.admin.capacity.max-type-item-craft' }
+            form:
+                fields:
+                    - { property: 'lvl', label: 'app.admin.capacity.lvl' }
+                    - { property: 'capacity', label: 'app.admin.capacity.capacity' }
+                    - { property: 'maxTypeItemCraft', label: 'app.admin.capacity.max-type-item-craft' }
+            show:
+                title: 'app.admin.show.capacity'
+                fields:
+                    - { property: 'lvl', label: 'app.admin.capacity.lvl' }
+                    - { property: 'capacity', label: 'app.admin.capacity.capacity' }
+                    - { property: 'maxTypeItemCraft', label: 'app.admin.capacity.max-type-item-craft' }
+            new:
+                title: 'app.admin.new.capacity'
+            edit:
+                title: 'app.admin.edit.capacity'
+        User:
+            class: App\Entity\User
+            label: 'app.admin.user'
+            list:
+                title: 'app.admin.list.user'
+                fields:
+                    - { property: 'id', label: 'app.admin.user.id' }
+                    - { property: 'username', label: 'app.admin.user.name' }
+                    - { property: 'lvl', label: 'app.admin.user.lvl' }
+                    - { property: 'resource', label: 'app.admin.user.resource' }
+                    - { property: 'enabled', type: 'toggle', label: 'app.admin.user.enabled' }
+            form:
+                fields:
+                    - { property: 'username', label: 'app.admin.user.name' }
+                    - { property: 'lvl', label: 'app.admin.user.lvl' }
+                    - { property: 'resource', label: 'app.admin.user.resource' }
+                    - { property: 'email', label: 'app.admin.user.email' }
+                    - { property: 'enabled', label: 'app.admin.user.enabled' }
+                    - { property: 'roles', type: 'choice', type_options: { multiple: true, choices: { 'ROLE_USER': 'ROLE_USER', 'ROLE_SUPER_ADMIN': 'ROLE_SUPER_ADMIN' } }, label: 'app.admin.user.roles' }
+            show:
+                title: 'app.admin.show.user'
+                fields:
+                    - { property: 'id', label: 'app.admin.user.id' }
+                    - { property: 'username', label: 'app.admin.user.name' }
+                    - { property: 'lvl', label: 'app.admin.user.lvl' }
+                    - { property: 'resource', label: 'app.admin.user.resource' }
+                    - { property: 'enabled', type: 'toggle', label: 'app.admin.user.enabled' }
+            new:
+                title: 'app.admin.new.user'
+                fields:
+                    - { property: 'plainPassword', type_options: { required: true}, label: 'app.admin.user.plainPassword' }
+                form_options: { validation_groups: ['Registration'] }
+            edit:
+                title: 'app.admin.edit.user'
+                fields:
+                    - { property: 'plainPassword', type_options: { required: false}, label: 'app.admin.user.plainPassword' }
+                form_options: { validation_groups: ['Profile'] }

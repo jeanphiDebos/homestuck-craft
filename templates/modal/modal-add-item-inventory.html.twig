@@ -1,0 +1,67 @@
+<div class="modal fade" id="add-item-inventory" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">{{ 'modal.title.inventory.add-item'|trans }}</h5>
+            </div>
+            <div class="modal-body">
+                <div id="modal-action-add-item-inventory" class="margin-height text-center hide">
+                    <button class="action-add-ite hide btn btn-primary">{{ 'modal.body.action.add-item'|trans }}</button>
+                    <button class="action-creat-item btn btn-primary">{{ 'modal.body.action.creat-item'|trans }}</button>
+                </div>
+                <form id="modal-inventory-add-item" class="modal-form-inventory-add-item">
+                    <div class="form-group">
+                        <label for="select-inventory-add-item">{{ 'modal.body.inventory.add-item'|trans }}</label>
+                        <select class="form-control form-control-lg select-listing-item hide" id="select-inventory-add-item"></select>
+                    </div>
+                </form>
+                <form id="modal-add-item" class="modal-form-add-item hide">
+                    <input type="hidden" id="id-item-source-one">
+                    <input type="hidden" id="id-item-source-two">
+                    <div class="form-group">
+                        <label for="input-add-item-name">{{ 'modal.body.add-item.name'|trans }}</label>
+                        <input type="text" class="form-control" id="input-add-item-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="input-add-item-description">{{ 'modal.body.add-item.description'|trans }}</label>
+                        <input type="text" class="form-control" id="input-add-item-description" required>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="select-add-item-category">{{ 'modal.body.add-item.category'|trans }}</label>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="select-add-item-type">{{ 'modal.body.add-item.type'|trans }}</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <select class="form-control" id="select-add-item-category" required></select>
+                            </div>
+                            <div class="col-md-4">
+                                <select class="form-control" id="select-add-item-type" required></select>
+                            </div>
+                            <div class="col-md-4">
+                                <button id="button-add-item-type" type="button" class="btn btn-primary form-control">
+                                    {{ 'modal.body.add-item.add-type'|trans }}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <ul id="list-item-type">
+                        <li id="prototype-list-item-type" class="hide">
+                            <span class="list-item-type-type"></span> /
+                            <span class="list-item-type-category"></span>
+                            <span class="list-item-type-remove glyphicon glyphicon-remove text-danger" aria-hidden="true"></span>
+                        </li>
+                    </ul>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">{{ 'modal.close'|trans }}</button>
+                <button type="button" class="btn btn-success submit">{{ 'modal.sav'|trans }}</button>
+            </div>
+        </div>
+    </div>
+</div>

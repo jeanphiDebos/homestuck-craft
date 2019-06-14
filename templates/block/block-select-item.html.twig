@@ -1,0 +1,17 @@
+<div id="{{ source }}" class="row">
+    <div class="col-md-12">
+        <form id="block-select-inventory-item-{{ source }}" class="block-select-item">
+            <div class="form-group">
+                <label for="select-inventory-item-{{ source }}">{{ ('block.select-item.'~source)|trans }}</label>
+                <select class="form-control select-listing-inventory-item" id="select-inventory-item-{{ source }}">
+                    <option value=""> </option>
+                </select>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-12">
+        <div id="selected-inventory-item-{{ source }}" class="selected-inventory-item hide">
+            {% include 'block/block-inventory-item.html.twig' %}
+        </div>
+    </div>
+</div>

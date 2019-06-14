@@ -2,7 +2,14 @@
 ###> symfony/framework-bundle ###
 .env
 /public/bundles/
+/public/build/
+/public/uploads/
 /var/
 /vendor/
 /.idea/
+/.vscode/
 ###< symfony/framework-bundle ###
+
+###> symfony/webpack-encore-pack ###
+/node_modules/
+###< symfony/webpack-encore-pack ###

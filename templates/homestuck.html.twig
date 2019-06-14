@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <header class="header clearfix">
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                                data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="#">{{ 'homestuck'|trans }} : {{ app.user.username }}</a>
+                        <div class="text-warning text-center">
+                            <span class="player-resource">0</span>
+                            <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                    <div id="navbar" class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+                            <li>
+                                <a data-toggle="modal" data-target="#add-crystals-player">
+                                    {{ 'player.add-crystals'|trans }}
+                                </a>
+                            </li>
+                            <li>
+                                <a data-toggle="modal" data-target="#add-item-inventory">
+                                    {{ 'inventory.add-item'|trans }}
+                                </a>
+                            </li>
+                            <li>
+                                <a data-toggle="modal" data-target="#remove-item-inventory">
+                                    {{ 'inventory.remove-item'|trans }}
+                                </a>
+                            </li>
+                            <li>
+                                <a data-toggle="modal" data-target="#player-book">
+                                    <span class="glyphicon glyphicon-book" aria-hidden="true"></span> {{ 'player.book'|trans }}
+                                </a>
+                            </li>
+                            <li>
+                                <a data-toggle="modal" data-target="#player-transfer">
+                                    <span class="glyphicon glyphicon-transfer" aria-hidden="true"></span> {{ 'player.transfer'|trans }}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main">
+            {% include 'block/block-crafting-item.html.twig' %}
+        </main>
+    </div>
+    <footer class="footer inventory-player">
+        <div class="inventory-player-items">
+            <div class="inventory-player-action text-center">
+                <div class="count-inventory-player-items"> x/x</div>
+                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#add-item-inventory">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                </button>
+            </div>
+            <div id="prototype-inventory-player-item" class="hide">
+                {% include 'block/block-inventory-item.html.twig' %}
+            </div>
+        </div>
+    </footer>
+    {% include 'modal/modal-add-crystals-player.html.twig' %}
+    {% include 'modal/modal-add-item-inventory.html.twig' %}
+    {% include 'modal/modal-remove-item-inventory.html.twig' %}
+    {% include 'modal/modal-player-book.html.twig' %}
+    {% include 'modal/modal-player-transfer.html.twig' %}
+{% endblock %}

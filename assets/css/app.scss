@@ -1,0 +1,92 @@
+$icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
+$fa-font-path: "~font-awesome/fonts";
+
+@import '~bootstrap-sass/assets/stylesheets/bootstrap';
+body {
+  background-color: #ccc;
+}
+
+.margin-height {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.block-crafting-item {
+  .inventory-player-item {
+    margin: 0 auto;
+  }
+}
+
+.inventory-player {
+  margin-top: 15px;
+  min-height: 100px;
+  overflow-x: auto;
+
+  &-action {
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50px;
+  }
+
+  &-item {
+    position: relative;
+    display: inline-block;
+    width: 148px;
+    height: 188px;
+    margin: 0 5px;
+    padding: 5px;
+    background-image: url('../images/item.png');
+
+    &s {
+      position: relative;
+      display: inline-block;
+      padding-left: 50px;
+    }
+
+    &-id {
+      position: absolute;
+      top: 0;
+      left: 0;
+      padding-left: 5px;
+      font-size: 10px;
+      z-index: 5;
+    }
+
+    &-name {
+      position: absolute;
+      top: 165px;
+      left: 15px;
+      font-size: 14px;
+      z-index: 5;
+    }
+
+    &-image {
+      position: absolute;
+      top: 18px;
+      left: 13px;
+      max-width: 102px;
+      max-height: 144px;
+      z-index: 5;
+    }
+
+    &-description {
+      position: absolute;
+      top: 6px;
+      left: 122px;
+      z-index: 5;
+    }
+
+    &-remove {
+      position: absolute;
+      top: 0;
+      left: 85px;
+      z-index: 5;
+    }
+  }
+}
+
+.item-craft-row-book {
+  padding-bottom: 20px;
+}

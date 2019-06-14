@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block body_attributes %}class="secure-login"{% endblock %}
+
+{% block body %}
+  {% if app.request.hasPreviousSession %}
+    {% for type, messages in app.session.flashbag.all() %}
+      {% for message in messages %}
+        <div class="flash-{{ type }}">
+          {{ message }}
+        </div>
+      {% endfor %}
+    {% endfor %}
+  {% endif %}
+  <!-- CONTENT - START -->
+  <div class="container-fluid page-create page-login page-reset-password">
+    <div class="row">
+      <div class="col-md-offset-3 col-md-6 text-center">
+        <h2>Homestuck</h2>
+        <hr>
+        <div class="login-container">
+          {% block fos_user_content %}{% endblock %}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
